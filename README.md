@@ -1,4 +1,4 @@
-# Deep Time Data Infrastructure - Mineral Observation Map
+## Deep Time Data Infrastructure - Mineral Observation Map
 
 Project Page: http://tw.rpi.edu/web/project/DTDI
 
