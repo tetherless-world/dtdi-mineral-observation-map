@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DTDI Mineral Observation Map</title>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.1/handlebars.min.js"></script>
+
+    <script src="facetview2/vendor/jquery/1.7.1/jquery-1.7.1.min.js"></script>
+    <link rel="stylesheet" href="facetview2/vendor/bootstrap/css/bootstrap.min.css">
+    <script type="text/javascript" src="facetview2/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="facetview2/vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.css">
+    <script type="text/javascript" src="facetview2/vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.min.js"></script>
+
+    <script type="text/javascript" src="facetview2/es.js"></script>
+    <script type="text/javascript" src="facetview2/bootstrap2.facetview.theme.js"></script>
+    <script type="text/javascript" src="facetview2/jquery.facetview2.js"></script>
+    <link rel="stylesheet" href="facetview2/css/facetview.css">
+
+    <script id="mineral-observation-template" type="text/x-handlebars-template">
+        <tr>
+            <td>
+                <div>
+                    <p>mineral observation record</p>
+                    {{!-- Locality (e.g. "Camafuca-Camazambo Mine, Calonda, Cambulo City Council, Lunda Norte Province, Angola")--}}
+                    {{!-- name --}}
+                    {{!-- coordinates --}}
+                    {{!-- link to MINDAT profile (badge?) --}}
+                </div>
+            </td>
+        </tr>
+    </script>
+
+    <script type="text/javascript">
+        var source = $("#mineral-observation-template").html();
+        var template = Handlebars.compile(source);
+    </script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function($) {
+            $('.dtdi-map').facetview({
+                search_url: '//localhost:9200/dtdi/mineral-observation/_search',
+                page_size: 20,
+                sharesave_link: true,
+                search_button: true,
+                default_freetext_fuzzify: "*",
+                default_facet_operator: "AND",
+                default_facet_order: "count",
+                default_facet_size: 15,
+                facets: [
+                    {'field': 'mineral-species.exact', 'display': 'Mineral Species'},
+                    {'field': 'elements.exact', 'display': 'Mineral Elements'},
+                    {'field': 'locality.country.exact', 'display': 'Country'},
+                    {'field': 'locality.region.exact', 'display': 'Region'},
+                    {'field': 'locality.mine.exact', 'display': 'Mine'}
+                ],
+                render_result_record: function(options, record)
+                {
+                    return template(record).trim();
+                },
+                selected_filters_in_facet: true,
+                show_filter_field : true,
+                show_filter_logic: true
+            });
+        });
+    </script>
+
+</head>
+<body>
+<div class="dtdi-map"></div>
+</body>
+</html>
