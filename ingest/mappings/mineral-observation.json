@@ -1,0 +1,56 @@
+{
+  "mineral-observation": {
+    "properties": {
+      "locality": {
+        "properties": {
+          "country" : {
+            "type": "multi_field",
+            "fields": {
+              "country" : {
+                "type": "string",
+                "index": "analyzed"
+              },
+              "exact": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "description": {
+        "type": "string"
+      },
+      "mindat": {
+        "type": "string",
+        "index": "no"
+      },
+      "mineral-species": {
+        "type": "multi_field",
+        "fields": {
+          "mineral-species" : {
+            "type": "string",
+            "index": "analyzed"
+          },
+          "exact": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+        }
+      },
+      "elements": {
+        "type": "multi_field",
+        "fields": {
+          "elements" : {
+            "type": "string",
+            "index": "analyzed"
+          },
+          "exact": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+        }
+      }
+    }
+  }
+}
