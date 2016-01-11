@@ -9,7 +9,7 @@
               "country" : {
                 "type": "string",
                 "index": "analyzed"
-              },
+              },  
               "exact": {
                 "type": "string",
                 "index": "not_analyzed"
@@ -44,6 +44,10 @@
           },
           "coordinates": {
             "type": "geo_point"
+          },
+          "mindat": {
+            "type": "string",
+            "index": "no"
           }
         }
       },
@@ -70,6 +74,19 @@
             }
           },
           "elements": {
+            "type": "multi_field",
+            "fields": {
+              "elements" : {
+                "type": "string",
+                "index": "analyzed"
+              },
+              "exact": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          },
+          "rruffchemistry": {
             "type": "multi_field",
             "fields": {
               "elements" : {
