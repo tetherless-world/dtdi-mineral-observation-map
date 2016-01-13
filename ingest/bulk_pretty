@@ -1,28 +1,27 @@
 {  
   "index":{  
-    "_id":"xxxxxxxx",
-    "_index":"xxxxxxx",
-    "_type":"observation"
+    "_id":"1",
+    "_index":"dtdi",
+    "_type":"mineral-observation"
   }
-}
-{
-  "locality":[
-    {
+}{  
+  "locality":[  
+    {  
       "country":"Canada",
       "region":"Québec, Canada",
       "mine":"Poudrette quarry (Demix quarry; Uni-Mix quarry; Desourdy quarry; Carrière Mont Saint-Hilaire), Mont Saint-Hilaire, La Vallée-du-Richelieu RCM, Montérégie, Québec, Canada",
-      "coordinates":{
-      	"lat":"45.56277778"
-      	"lon":"-73.14166667"
+      "coordinates":{  
+        "lat":"45.56277778",
+        "lon":"-73.14166667"
       },
       "mindat":"http://www.mindat.org/loc-599.html"
     }
   ],
   "description":"Named after the Abenaki, the indigenous people who inhabited the area around Mont Saint-Hilaire in southern Québec, prior to the arrival of European settlers.",
   "mindat":"http://www.mindat.org/min-2.html",
-  "mineral":{
-  	"name":"Abenakiite-(Ce)",
-  	"rruffchemistry":"Na_26_Ce^3+^_6_(SiO_3_)_6_(PO_4_)_6_(CO_3_)_6_(S^4+^O_2_)O",
-  	"elements":"Na Ce Si O P C S"
+  "mineral":{  
+    "name":"Abenakiite-(Ce)",
+    "rruffchemistry":"Na_26_Ce^3+^_6_(SiO_3_)_6_(PO_4_)_6_(CO_3_)_6_(S^4+^O_2_)O",
+    "elements":"Na Ce Si O P C S"
   }
 }
