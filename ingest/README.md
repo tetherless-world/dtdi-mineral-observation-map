@@ -1,10 +1,20 @@
+*** Some scripts for convenience. Just as a scratchpad for now ***
+
+
+curl -XPUT 'localhost:9200/dtdi/mineral-observation/_mapping?pretty' --data-binary @mappings/mineral-observation.json 
+
+
+curl -XPOST 'localhost:9200/_bulk' --data-binary @[out]
+
+
+
+curl -XGET 'localhost:9200/dtdi/mineral-observation/_mapping?pretty'
+
+
+
+
+POST /dtdi/mineral-observation/
 {  
-  "index":{  
-    "_id":"1",
-    "_index":"dtdi",
-    "_type":"mineral-observation"
-  }
-}{  
   "locality":[  
     {  
       "country":"Canada",
@@ -26,3 +36,9 @@
     "elements":"Na Ce Si O P C S"
   }
 }
+
+DELETE dtdi/mineral-observation
+
+GET /dtdi/mineral-observation/_mapping
+
+GET /dtdi/mineral-observation/_search

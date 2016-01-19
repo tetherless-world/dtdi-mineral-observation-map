@@ -86,10 +86,23 @@
               }
             }
           },
-          "rruffchemistry":{  
+          "rruffChemistryConcise":{  
             "type":"multi_field",
             "fields":{  
-              "rruffchemistry":{  
+              "rruffChemistryConcise":{  
+                "type":"string",
+                "index":"analyzed"
+              },
+              "exact":{  
+                "type":"string",
+                "index":"not_analyzed"
+              }
+            }
+          },
+          "rruffChemistryHTML":{  
+            "type":"multi_field",
+            "fields":{  
+              "rruffChemistryHTML":{  
                 "type":"string",
                 "index":"analyzed"
               },
