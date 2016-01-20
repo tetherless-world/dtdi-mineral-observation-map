@@ -20,21 +20,24 @@
     <script id="mineral-observation-template" type="text/x-handlebars-template">
         <tr>
             <td>
-                <div>
-                    (This is a piece of mineral-observation.)   <br>
-                    Mineral Name: <a href="{{mindat}}" target="_blank"> {{mineral.name}}</a>  <br>
-                    Locality:   <br>
-                    &nbsp&nbsp {{locality}} <strong> (Discussion of observation records, ages, etc with Marshall) </strong>    <br>
-                    {{#expand locality}}
-                    &nbsp&nbsp Mine: <a href="{{mindat}}" target="_blank"> {{mine}}</a>   <br>
-                    &nbsp&nbsp Longtitude: <a href="{{mindat}}" target="_blank"> {{coordinates.lon}}</a> <br>
-                    &nbsp&nbsp Latitutde: <a href="{{mindat}}" target="_blank"> {{coordinates.lat}}</a>  <br>
-                    {{/expand}}
-                    {{!-- link to MINDAT profile (badge?) --}}
-                    Mineral Description: {{description}}    <br>
-                    Mineral Chemistry: {{{mineral.rruffChemistryHTML}}}    <br>
+                {{#if mineral.name}}<div><strong>Mineral Name:</strong> <a href="{{mindat}}" target="_blank"> {{mineral.name}}</a></div>
+                {{else}} <div><strong>Mineral Name:</strong> N/A</div>
+                {{/if}}
 
-                </div>
+                {{#if locality}}
+                <div> <strong>Locality (Need discussion of observation records, ages, etc with Marshall) </strong></div>
+                {{#expand locality}}
+                    <div>&nbsp&nbsp <strong>Mine:</strong> <a href="{{mindat}}" target="_blank"> {{mine}}</a></div>
+                    <div>&nbsp&nbsp <strong>Longtitude:</strong> <a href="{{mindat}}" target="_blank"> {{coordinates.lon}}</a></div>
+                    <div>&nbsp&nbsp <strong>Latitutde:</strong> <a href="{{mindat}}" target="_blank"> {{coordinates.lat}}</a></div>
+                {{/expand}}
+                {{/if}}
+
+                {{#if description}}<div><strong>Mineral Description:</strong> {{description}}</div>{{/if}}
+
+                {{#if mineral.rruffChemistryHTML}}<div><strong>Mineral Chemistry:</strong> {{{mineral.rruffChemistryHTML}}}</div>{{/if}}
+
+                {{!-- link to MINDAT profile (badge?) --}}
             </td>
         </tr>
     </script>
