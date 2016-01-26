@@ -20,22 +20,21 @@
     <script id="mineral-observation-template" type="text/x-handlebars-template">
         <tr>
             <td>
-                {{#if mineral.name}}<div><strong>Mineral Name:</strong> <a href="{{mindat}}" target="_blank"> {{mineral.name}}</a></div>
+                {{#if mineral.mineral-name-plain}}<div><strong>Mineral Name:</strong> <a href="{{mineral.mineral-mindat-url}}" target="_blank"> {{mineral.mineral-name-plain}}</a></div>
                 {{else}} <div><strong>Mineral Name:</strong> N/A</div>
                 {{/if}}
 
                 {{#if locality}}
-                <div> <strong>Locality (Need discussion of observation records, ages, etc with Marshall) </strong></div>
-                {{#expand locality}}
-                    <div>&nbsp&nbsp <strong>Mine:</strong> <a href="{{mindat}}" target="_blank"> {{mine}}</a></div>
-                    <div>&nbsp&nbsp <strong>Longtitude:</strong> <a href="{{mindat}}" target="_blank"> {{coordinates.lon}}</a></div>
-                    <div>&nbsp&nbsp <strong>Latitutde:</strong> <a href="{{mindat}}" target="_blank"> {{coordinates.lat}}</a></div>
-                {{/expand}}
+                <div> <strong>Locality: </strong><a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.locality-label}}</a></div>
+                <div><strong>Mine:</strong> <a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.locality-label}}</a></div>
+                <div><strong>Longtitude:</strong> <a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.lon}}</a> <strong>Latitutde:</strong> <a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.lat}}</a></div>
+                <div><strong>Lat-Lon:</strong> <a href="http://www.google.com/maps/place/{{locality.decimal-degree}}" target="_blank"> {{locality.decimal-degree}}</a></div>
+
                 {{/if}}
 
                 {{#if description}}<div><strong>Mineral Description:</strong> {{description}}</div>{{/if}}
 
-                {{#if mineral.rruffChemistryHTML}}<div><strong>Mineral Chemistry:</strong> {{{mineral.rruffChemistryHTML}}}</div>{{/if}}
+                {{#if mineral.rruff-chemistry-html}}<div><strong>Mineral Chemistry:</strong> {{{mineral.rruff-chemistry-html}}}</div>{{/if}}
 
                 {{!-- link to MINDAT profile (badge?) --}}
             </td>
@@ -66,7 +65,6 @@
         $(document).ready(function($) {
             $('.dtdi-map').facetview({
                 search_url: 'http://localhost:9200/dtdi/mineral-observation/_search',
-                // search_url: 'http://localhost:9200/dtdi/dataset/_search',
                 page_size: 20,
                 sharesave_link: true,
                 search_button: true,
@@ -75,12 +73,11 @@
                 default_facet_order: "count",
                 default_facet_size: 15,
                 facets: [
-                    {'field': 'mineral.name', 'display': 'Mineral Name'},
-                    {'field': 'mineral-species.exact', 'display': 'Mineral Species'},
-                    {'field': 'elements.exact', 'display': 'Mineral Elements'},
-                    {'field': 'locality.country.exact', 'display': 'Country'},
-                    {'field': 'locality.region.exact', 'display': 'Region'},
-                    {'field': 'locality.mine.exact', 'display': 'Mine'}
+                    {'field': 'mineral.mineral-name-plain', 'display': 'Mineral Name'},
+                    {'field': 'mineral.chemistry-elements-list', 'display': 'Mineral Elements'},
+                    {'field': 'locality.country', 'display': 'Country'},
+                    {'field': 'locality.region', 'display': 'Region'},
+                    {'field': 'locality.locality-label', 'display': 'Mine'}
                 ],
                 render_result_record: function(options, record)
                 {
