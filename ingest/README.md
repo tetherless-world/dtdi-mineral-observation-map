@@ -1,18 +1,25 @@
 ***This is temporarily a scratch pad and will be a formatted README as it goes on***
 
-***Instructions:
+### Installing Instructions
 
-Generate bulk-file:
+1. To generate bulk-file, change directory to `dtdi-mineral-observation-map/ingest/example` and execute:
 
-``python3 parseOriginalData.py''
+`python3 parseOriginalData.py` 
 
-Upload bulk-file:
+A bulk upload file called `bulk-file` will be generated.
 
-``curl -XPOST 'localhost:9200/_bulk' --data-binary @bulk_file''
+2. To upload file to elasticsearch:
+
+(1) Delete the existing data and mapping: `curl -XDELETE 'localhost:9200/dtdi/mineral-observation'`
+
+(2) Upload the mapping file:
+`curl -XPUT 'localhost:9200/dtdi/mineral-observation/_mapping?pretty' --data-binary @../mappings/mineral-observation-new.json`
+
+(3) Upload the bulk file:
+`curl -XPOST 'localhost:9200/_bulk' --data-binary @bulk_file`
 
 ====================================================================
-
-
+** Below are scratches and miscellaneous info. Please ignore for now**
 
 1) Go to http://rruff.info/ima/ and log in.
 

@@ -26,7 +26,6 @@
 
                 {{#if locality}}
                 <div> <strong>Locality: </strong><a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.locality-label}}</a></div>
-                <div><strong>Mine:</strong> <a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.locality-label}}</a></div>
                 <div><strong>Longtitude:</strong> <a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.lon}}</a> <strong>Latitutde:</strong> <a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.lat}}</a></div>
                 <div><strong>Lat-Lon:</strong> <a href="http://www.google.com/maps/place/{{locality.decimal-degree}}" target="_blank"> {{locality.decimal-degree}}</a></div>
 
@@ -73,11 +72,11 @@
                 default_facet_order: "count",
                 default_facet_size: 15,
                 facets: [
-                    {'field': 'mineral.mineral-name-plain', 'display': 'Mineral Name'},
-                    {'field': 'mineral.chemistry-elements-list', 'display': 'Mineral Elements'},
-                    {'field': 'locality.country', 'display': 'Country'},
-                    {'field': 'locality.region', 'display': 'Region'},
-                    {'field': 'locality.locality-label', 'display': 'Mine'}
+                    {'field': 'mineral.mineral-name-plain.exact', 'display': 'Mineral Name'},
+                    {'field': 'mineral.chemistry-elements-list.exact', 'display': 'Mineral Elements'},
+                    {'field': 'locality.country.exact', 'display': 'Country'},
+                    {'field': 'locality.region.exact', 'display': 'Region'},
+                    {'field': 'locality.locality-label.exact', 'display': 'Locality'}
                 ],
                 render_result_record: function(options, record)
                 {
