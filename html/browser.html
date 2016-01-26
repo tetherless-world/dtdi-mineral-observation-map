@@ -26,8 +26,14 @@
 
                 {{#if locality}}
                 <div> <strong>Locality: </strong><a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.locality-label}}</a></div>
-                <div><strong>Longtitude:</strong> <a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.lon}}</a> <strong>Latitutde:</strong> <a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.lat}}</a></div>
-                <div><strong>Lat-Lon:</strong> <a href="http://www.google.com/maps/place/{{locality.decimal-degree}}" target="_blank"> {{locality.decimal-degree}}</a></div>
+                <div>
+                    <strong>Longtitude:</strong>  {{locality.lon}}
+                    <strong>Latitutde:</strong>  {{locality.lat}}
+                    <a href="http://www.google.com/maps/place/{{locality.decimal-degree}}" target="_blank"> (View in Google Map)</a>
+                </div>
+
+                <div><strong>Min Age:</strong> {{locality.min-age}}</div>
+                <div><strong>Max Age:</strong> {{locality.max-age}}</div>
 
                 {{/if}}
 
