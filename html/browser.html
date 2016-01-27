@@ -32,8 +32,8 @@
                     <a href="http://www.google.com/maps/place/{{locality.decimal-degree}}" target="_blank"> (View in Google Map)</a>
                 </div>
 
-                <div><strong>Min Age:</strong> {{locality.min-age}}</div>
-                <div><strong>Max Age:</strong> {{locality.max-age}}</div>
+                {{#if locality.min-age}}<div><strong>Min Age:</strong> {{locality.min-age}}</div>{{/if}}
+                {{#if locality.max-age}}<div><strong>Max Age:</strong> {{locality.max-age}}</div>{{/if}}
 
                 {{/if}}
 
