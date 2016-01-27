@@ -20,18 +20,47 @@
     <script id="mineral-observation-template" type="text/x-handlebars-template">
         <tr>
             <td>
+                {{#if mineral.mineral-name-plain}}<div><strong>Mineral Name:</strong> <a href="{{mineral.mineral-mindat-url}}" target="_blank"> {{mineral.mineral-name-plain}}</a></div>
+                {{else}} <div><strong>Mineral Name:</strong> N/A</div>
+                {{/if}}
+
+                {{#if locality}}
+                <div> <strong>Locality: </strong><a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.locality-label}}</a></div>
                 <div>
-                    <p>mineral observation record</p>
-                    {{!-- Locality (e.g. "Camafuca-Camazambo Mine, Calonda, Cambulo City Council, Lunda Norte Province, Angola")--}}
-                    {{!-- name --}}
-                    {{!-- coordinates --}}
-                    {{!-- link to MINDAT profile (badge?) --}}
+                    <strong>Longtitude:</strong>  {{locality.lon}}
+                    <strong>Latitutde:</strong>  {{locality.lat}}
+                    <a href="http://www.google.com/maps/place/{{locality.decimal-degree}}" target="_blank"> (View in Google Map)</a>
                 </div>
+
+                <div><strong>Min Age:</strong> {{locality.min-age}}</div>
+                <div><strong>Max Age:</strong> {{locality.max-age}}</div>
+
+                {{/if}}
+
+                {{#if description}}<div><strong>Mineral Description:</strong> {{description}}</div>{{/if}}
+
+                {{#if mineral.rruff-chemistry-html}}<div><strong>Mineral Chemistry:</strong> {{{mineral.rruff-chemistry-html}}}</div>{{/if}}
+
+                {{!-- link to MINDAT profile (badge?) --}}
             </td>
         </tr>
     </script>
 
     <script type="text/javascript">
+
+        Handlebars.registerHelper('expand', function(items, options) {
+            var out = "";
+            var j = items.length - 1;
+            for(var i = 0; i < items.length; i++) {
+                out += options.fn(items[i]);
+                if(i < j) {
+                    out += "; ";
+                }
+            }
+            return out;
+        });
+
+
         var source = $("#mineral-observation-template").html();
         var template = Handlebars.compile(source);
     </script>
@@ -40,7 +69,7 @@
 
         $(document).ready(function($) {
             $('.dtdi-map').facetview({
-                search_url: '//localhost:9200/dtdi/mineral-observation/_search',
+                search_url: 'http://localhost:9200/dtdi/mineral-observation/_search',
                 page_size: 20,
                 sharesave_link: true,
                 search_button: true,
@@ -49,14 +78,16 @@
                 default_facet_order: "count",
                 default_facet_size: 15,
                 facets: [
-                    {'field': 'mineral-species.exact', 'display': 'Mineral Species'},
-                    {'field': 'elements.exact', 'display': 'Mineral Elements'},
+                    {'field': 'mineral.mineral-name-plain.exact', 'display': 'Mineral Name'},
+                    {'field': 'mineral.chemistry-elements-list.exact', 'display': 'Mineral Elements'},
                     {'field': 'locality.country.exact', 'display': 'Country'},
                     {'field': 'locality.region.exact', 'display': 'Region'},
-                    {'field': 'locality.mine.exact', 'display': 'Mine'}
+                    {'field': 'locality.locality-label.exact', 'display': 'Locality'}
                 ],
                 render_result_record: function(options, record)
                 {
+                    // var html = "<tr><td>";
+                    // html += "Hello World!";
                     return template(record).trim();
                 },
                 selected_filters_in_facet: true,

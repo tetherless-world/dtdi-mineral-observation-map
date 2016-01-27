@@ -1,0 +1,29 @@
+   Max Age (Ma)   ,   Min Age (Ma)   ,   MinDat ID   ,   Locality containing Mineral   ,   Dated Locality ID   ,   Dated Locality (Max Age)   ,   Reference (Max Age)   ,   Reference (Min Age)   ,   Query Minerals at Locality   ,   # of Query Minerals at Locality   ,   # of sublocalities with Query Minerals   ,   # of dated sublocalities   ,   Lat Deg   ,   Lat Min   ,   Lat Sec   ,   Lon Deg   ,   Lon Min   ,   Lon Sec   ,   Decimal Degree   
+,,27567,Jamaica,,,,,Abhurite,1,,,0,0,0,0,0,0,
+,,0,"Kingston Parish, Jamaica",,,,,Abhurite,1,,,0,0,0,0,0,0,
+,,46532,"Port Royal, Kingston Parish, Jamaica",,,,,Abhurite,1,,,0,0,0,0,0,0,"0,0"
+1742,153,12362,Norway,11288,"Hundholmen, Tysfjord, Nordland, Norway",Andresen and Tull (1986),Pfaff et al. (2009),Abhurite,1,,,62,49,21,11,11,6,"62.8225,11.185"
+962,944,23861,"Vest-Agder, Norway",52668,"Kvinesdal, Vest-Agder, Norway",Bingen et al. (2006),Bingen et al. (2006),Abhurite,1,,,58,19,59,7,43,38,"58.333055555556,7.7272222222222"
+,,23983,"Flekkefjord, Vest-Agder, Norway",,,,,Abhurite,1,,,0,0,0,0,0,0,
+,,3100,"Hidra (Hitterø), Flekkefjord, Vest-Agder, Norway",,,,,Abhurite,1,,,0,0,0,0,0,0,
+,,68100,"Wreck Site, Hidra (Hitterø), Flekkefjord, Vest-Agder, Norway",,,,,Abhurite,1,,,0,0,0,0,0,0,"0,0"
+800,785,22386,Saudi Arabia,244355,"Jabal Ash Shizm, Mintaqah Al Madinah, Saudi Arabia",Moiser et al. (2009),Moiser et al. (2009),Abhurite,1,,,23,56,50,42,38,42,"23.947222222222,42.645"
+,,145806,"Mintaqah Makkah, Saudi Arabia",,,,,Abhurite,1,,,22,4,40,41,28,19,
+,,0,"Jiddah (Jeddah), Mintaqah Makkah, Saudi Arabia",,,,,Abhurite,1,,,0,0,0,0,0,0,
+,,2830,"Sharm Abhur Cove, Jiddah (Jeddah), Mintaqah Makkah, Saudi Arabia",,,,,Abhurite,1,,,0,0,0,0,0,0,"0,0"
+436,2.6,14281,UK,4245,"Parys Mountain Mines (Paris Mine; Parys Mine; Mona Mine; Morfa Du Mine), Amlwch, Isle Of Anglesey, Wales, UK",Moiser et al. (2009),Hall et al. (1982),Abhurite,1,,,53,58,36,-3,-53,-17,"53.976666666667,-3.8880555555556"
+402,176,14093,"England, UK",4747,"Coniston Copper Mines, Coniston District, Cumbria, England, UK",Ineson and Mitchell (1974),Milodowski A E et al. (2002),Abhurite,1,,,52,19,53,-1,-32,0,"52.331388888889,-1.5333333333333"
+288,276,840,"Cornwall, England, UK",1109,"Wherry Mine, Penzance, Mount's Bay District, Cornwall, England, UK",Darbyshire and Shepherd (1985),Darbyshire and Shepherd (1985),Abhurite,1,,,50,16,15,-5,-4,-52,"50.270833333333,-5.0811111111111"
+,,14168,"St Ives District, Cornwall, England, UK",,,,,Abhurite,1,,,50,11,18,-5,-31,-4,
+,,841,"SS Cheerful Wreck Site, St Ives District, Cornwall, England, UK",,,,,Abhurite,1,,,0,0,0,0,0,0,"0,0"
+436,436,14092,"Wales, UK",4245,"Parys Mountain Mines (Paris Mine; Parys Mine; Mona Mine; Morfa Du Mine), Amlwch, Isle Of Anglesey, Wales, UK",Moiser et al. (2009),Moiser et al. (2009),Abhurite,1,,,52,11,49,-3,-37,-39,"52.196944444444,-3.6275"
+436,436,22716,"Isle Of Anglesey, Wales, UK",4245,"Parys Mountain Mines (Paris Mine; Parys Mine; Mona Mine; Morfa Du Mine), Amlwch, Isle Of Anglesey, Wales, UK",Moiser et al. (2009),Moiser et al. (2009),Abhurite,1,,,53,19,57,-4,-26,-21,"53.3325,-4.4391666666667"
+,,31000,"SS Liverpool Wreck Site, Isle Of Anglesey, Wales, UK",,,,,Abhurite,1,,,53,25,53,-4,-25,-25,"53.431388888889,-4.4236111111111"
+3411,0,3366,USA,225412,"Watersmeet, Gogebic Co., Michigan, USA",Peterman et al. (1980),Studemeister (1984),Abhurite,1,,,39,32,43,-93,-41,-10,"39.545277777778,-93.686111111111"
+,,16149,"Florida, USA",,,,,Abhurite,1,,,29,1,9,-82,-46,-6,
+,,30999,"Monroe Co., Florida, USA",,,,,Abhurite,1,,,24,49,57,-80,-59,-58,
+,,30998,"San Jose Wreck Site, Monroe Co., Florida, USA",,,,,Abhurite,1,,,0,0,0,0,0,0,"0,0"
+460,345,4033,"North Carolina, USA",100109,"Democrat Olivine Deposit (Democrat Chromite Prospect; T Mine; Democrat Chromite Placer Deposit; ITS; Ivy River-Democrat Chromite Deposit), Canton-Democrat, Buncombe Co., North Carolina, USA",Moiser et al. (2012),Swanson (2012),Abhurite,1,,,35,38,10,-79,-54,-24,"35.636111111111,-79.906666666667"
+,,216467,"Carteret Co., North Carolina, USA",,,,,Abhurite,1,,,34,44,0,-76,-45,-59,
+,,0,"Beaufort, Carteret Co., North Carolina, USA",,,,,Abhurite,1,,,0,0,0,0,0,0,
+,,30997,"Queen Anne's Revenge Wreck Site, Beaufort, Carteret Co., North Carolina, USA",,,,,Abhurite,1,,,0,0,0,0,0,0,"0,0"
