@@ -16,6 +16,67 @@
               }
             }
           },
+          "dated-locality-label":{  
+            "type":"string"
+          },
+          "dated-locality-mindat-id":{  
+            "type":"string"
+          },
+          "dated-locality-mindat-url":{  
+            "type":"string"
+          },
+          "decimal-degree":{  
+            "type":"string"
+          },
+          "lat":{  
+            "type":"double"
+          },
+          "lat-deg":{  
+            "type":"string"
+          },
+          "lat-min":{  
+            "type":"string"
+          },
+          "lat-sec":{  
+            "type":"string"
+          },
+          "locality-label":{  
+            "type":"multi_field",
+            "fields":{  
+              "locality-label":{  
+                "type":"string",
+                "index":"analyzed"
+              },
+              "exact":{  
+                "type":"string",
+                "index":"not_analyzed"
+              }
+            }
+          },
+          "locality-mindat-id":{  
+            "type":"string"
+          },
+          "locality-mindat-url":{  
+            "type":"string"
+          },
+          "lon":{  
+            "type":"double"
+          },
+          "lon-deg":{  
+            "type":"string"
+          },
+          "lon-min":{  
+            "type":"string"
+          },
+          "lon-sec":{  
+            "type":"string"
+          },
+          "max-age":{  
+            "type":"string"
+          },
+          "min-age":{  
+            "type":"string"
+          },
           "region":{  
             "type":"multi_field",
             "fields":{  
@@ -28,42 +89,15 @@
                 "index":"not_analyzed"
               }
             }
-          },
-          "mine":{  
-            "type":"multi_field",
-            "fields":{  
-              "mine":{  
-                "type":"string",
-                "index":"analyzed"
-              },
-              "exact":{  
-                "type":"string",
-                "index":"not_analyzed"
-              }
-            }
-          },
-          "coordinates":{  
-            "type":"geo_point"
-          },
-          "mindat":{  
-            "type":"string",
-            "index":"no"
           }
         }
       },
-      "description":{  
-        "type":"string"
-      },
-      "mindat":{  
-        "type":"string",
-        "index":"no"
-      },
       "mineral":{  
         "properties":{  
-          "name":{  
+          "chemistry-elements-list":{  
             "type":"multi_field",
             "fields":{  
-              "name":{  
+              "chemistry-elements-list":{  
                 "type":"string",
                 "index":"analyzed"
               },
@@ -73,10 +107,28 @@
               }
             }
           },
-          "elements":{  
+          "country-of-type-locality":{  
+            "type":"string"
+          },
+          "fleischers-groupname":{  
+            "type":"string"
+          },
+          "ima-chesmistry-concise":{  
+            "type":"string"
+          },
+          "ima-chesmistry-html":{  
+            "type":"string"
+          },
+          "ima-number":{  
+            "type":"string"
+          },
+          "mineral-mindat-url":{  
+            "type":"string"
+          },
+          "mineral-name-plain":{  
             "type":"multi_field",
             "fields":{  
-              "elements":{  
+              "mineral-name-plain":{  
                 "type":"string",
                 "index":"analyzed"
               },
@@ -86,31 +138,14 @@
               }
             }
           },
-          "rruffChemistryConcise":{  
-            "type":"multi_field",
-            "fields":{  
-              "rruffChemistryConcise":{  
-                "type":"string",
-                "index":"analyzed"
-              },
-              "exact":{  
-                "type":"string",
-                "index":"not_analyzed"
-              }
-            }
+          "rruff-chemistry-concise":{  
+            "type":"string"
           },
-          "rruffChemistryHTML":{  
-            "type":"multi_field",
-            "fields":{  
-              "rruffChemistryHTML":{  
-                "type":"string",
-                "index":"analyzed"
-              },
-              "exact":{  
-                "type":"string",
-                "index":"not_analyzed"
-              }
-            }
+          "rruff-chemistry-html":{  
+            "type":"string"
+          },
+          "year-first-published":{  
+            "type":"string"
           }
         }
       }
