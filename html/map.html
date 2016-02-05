@@ -90,6 +90,7 @@
                 {
                     // do not render results in standard result set.
                     // results are rendered in map pop-ups
+                    return "";
                 },
                 selected_filters_in_facet: true,
                 show_filter_field : true,
@@ -221,7 +222,6 @@
 
                                 observation = data[item].observations[0];
                                 var _locality = observation.locality;
-//                                var _mineral = observation.mineral;
 
                                 var attr = {};
                                 attr["title"] = _locality["locality-mindat-url"];
@@ -276,6 +276,14 @@
 
         #facetview_results {
             display: none;
+        }
+
+        #facetview_filters {
+            margin-left: 10px;
+        }
+
+        #facetview_rightcol {
+            margin-top: 10px;
         }
 
     </style>
