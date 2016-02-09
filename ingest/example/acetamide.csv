@@ -1,6 +1,6 @@
-   Max Age (Ma)   ,   Min Age (Ma)   ,   MinDat ID   ,   Locality containing Mineral   ,   Dated Locality ID   ,   Dated Locality (Max Age)   ,   Reference (Max Age)   ,   Reference (Min Age)   ,   Query Minerals at Locality   ,   # of Query Minerals at Locality   ,   # of sublocalities with Query Minerals   ,   # of dated sublocalities   ,   Lat Deg   ,   Lat Min   ,   Lat Sec   ,   Lon Deg   ,   Lon Min   ,   Lon Sec   ,   Decimal Degree   
-280,280,3275,Ukraine,20415,"Southern Donbass, Donetsk (Donets'k) Oblast', Ukraine",Cox et al. (2003),Cox et al. (2003),Acetamide,1,,,48,45,1,31,0,14,"48.750277777778,31.003888888889"
-,,156920,"L'viv Oblast' (Lviv Oblast'; Lwiw Oblast'), Ukraine",,,,,Acetamide,1,,,49,36,10,23,34,3,
-,,158593,"L'viv-Volynskii Coal Basin (L'vov-Volynskii Coal Basin), L'viv Oblast' (Lviv Oblast'; Lwiw Oblast'), Ukraine",,,,,Acetamide,1,,,0,0,0,0,0,0,
-,,158592,"Chervonograd, L'viv-Volynskii Coal Basin (L'vov-Volynskii Coal Basin), L'viv Oblast' (Lviv Oblast'; Lwiw Oblast'), Ukraine",,,,,Acetamide,1,,,0,0,0,0,0,0,
-,,2723,"Coal Mine, Chervonograd, L'viv-Volynskii Coal Basin (L'vov-Volynskii Coal Basin), L'viv Oblast' (Lviv Oblast'; Lwiw Oblast'), Ukraine",,,,,Acetamide,1,,,0,0,0,0,0,0,"0,0"
+Label 1,Label 2,Label 3,   Max Age (Ma)   ,   Min Age (Ma)   ,   MinDat ID   ,   Locality containing Mineral   ,   Dated Locality ID   ,   Dated Locality (Max Age)   ,   Reference (Max Age)   ,   Reference (Min Age)   ,   Query Minerals at Locality   ,   # of Query Minerals at Locality   ,   # of sublocalities with Query Minerals   ,   # of dated sublocalities   ,   Lat Deg   ,   Lat Min   ,   Lat Sec   ,   Lon Deg   ,   Lon Min   ,   Lon Sec   ,   Decimal Degree   
+   ,,O,280,280,3275,Ukraine,20415,"Southern Donbass, Donetsk (Donets'k) Oblast', Ukraine",Cox et al. (2003),Cox et al. (2003),Acetamide,1,,,48,34,1,30,56,13,"48.566944444444,30.936944444444"
+   ,,,,,156920,"L'viv Oblast' (Lviv Oblast'; Lwiw Oblast'), Ukraine",,,,,Acetamide,1,,,49,36,10,23,34,3,
+   ,,,,,158593,"L'viv-Volynskii Coal Basin (L'vov-Volynskii Coal Basin), L'viv Oblast' (Lviv Oblast'; Lwiw Oblast'), Ukraine",,,,,Acetamide,1,,,0,0,0,0,0,0,
+   ,,,,,158592,"Chervonograd, L'viv-Volynskii Coal Basin (L'vov-Volynskii Coal Basin), L'viv Oblast' (Lviv Oblast'; Lwiw Oblast'), Ukraine",,,,,Acetamide,1,,,0,0,0,0,0,0,
+MD ,,,,,2723,"Coal Mine, Chervonograd, L'viv-Volynskii Coal Basin (L'vov-Volynskii Coal Basin), L'viv Oblast' (Lviv Oblast'; Lwiw Oblast'), Ukraine",,,,,Acetamide,1,,,0,0,0,0,0,0,"0,0"

@@ -22,20 +22,21 @@ mineral_list_JSON_string = json.dumps([x for x in mineral_list_reader ], indent=
 mineral_list_JSON = json.loads(mineral_list_JSON_string)
 
 
-# mineral_observations = []
+mineral_observations = []
 for mineral_json in mineral_list_JSON[0:10]:
-	mineral = json.loads("{}")
-	mineral["mineral-name-plain"] = mineral_json["Mineral Name (plain)"]
-	mineral["chemistry-elements-list"] = mineral_json["Chemistry Elements"].strip().split(" ")
-	mineral["mineral-mindat-url"] = requests.get("http://www.mindat.org/search.php?name=" + mineral_json["Mineral Name (plain)"]).url
-	mineral["country-of-type-locality"] = mineral_json["Country of Type Locality"]	
-	mineral["fleischers-groupname"] = mineral_json["Fleischers Groupname"]
-	mineral["ima-chesmistry-html"] = mineral_json["IMA Chemistry (HTML)"]
-	mineral["ima-chesmistry-concise"] = mineral_json["IMA Chemistry (concise)"]
-	mineral["ima-number"] = mineral_json["IMA Number"]
-	mineral["rruff-chemistry-html"] = mineral_json["RRUFF Chemistry (HTML)"]
-	mineral["rruff-chemistry-concise"] = mineral_json["RRUFF Chemistry (concise)"]
-	mineral["year-first-published"] = mineral_json["Year First Published"]
+	mineral_species = json.loads("{}")
+	# print(mineral_json["Mineral Name (plain)"])
+	mineral_species["mineral-name-plain"] = mineral_json["Mineral Name (plain)"]
+	mineral_species["chemistry-elements-list"] = mineral_json["Chemistry Elements"].strip().split(" ")
+	mineral_species["mineral-mindat-url"] = requests.get("http://www.mindat.org/search.php?name=" + mineral_json["Mineral Name (plain)"]).url
+	mineral_species["country-of-type-locality"] = mineral_json["Country of Type Locality"]
+	mineral_species["fleischers-groupname"] = mineral_json["Fleischers Groupname"]
+	mineral_species["ima-chesmistry-html"] = mineral_json["IMA Chemistry (HTML)"]
+	mineral_species["ima-chesmistry-concise"] = mineral_json["IMA Chemistry (concise)"]
+	mineral_species["ima-number"] = mineral_json["IMA Number"]
+	mineral_species["rruff-chemistry-html"] = mineral_json["RRUFF Chemistry (HTML)"]
+	mineral_species["rruff-chemistry-concise"] = mineral_json["RRUFF Chemistry (concise)"]
+	mineral_species["year-first-published"] = mineral_json["Year First Published"]
 
 	# Now we have mineral information ready.
 	# We go through each observation from the locality list, and generate mineral observation records
@@ -48,32 +49,37 @@ for mineral_json in mineral_list_JSON[0:10]:
 		locality["locality-mindat-id"]  = locality_json["MinDat ID"]
 		locality["locality-mindat-url"] = "http://www.mindat.org/loc-" + locality_json["MinDat ID"] + ".html"
 		_country_region = locality_json["Locality containing Mineral"].strip().split(",")
-		locality["country"] = _country_region[len(_country_region)-1].strip()		
+		locality["country"] = _country_region[len(_country_region)-1].strip()
 		locality["region"] =  _country_region[len(_country_region)-2].strip() + ", " + _country_region[len(_country_region)-1].strip()
 		locality["lat"] = int(locality_json["Lat Deg"]) + int(locality_json["Lat Min"])/60 + int(locality_json["Lat Sec"])/3600
 		locality["lon"] = int(locality_json["Lon Deg"]) + int(locality_json["Lon Min"])/60 + int(locality_json["Lon Sec"])/3600
-		locality["lat-deg"] = locality_json["Lat Deg"]
-		locality["lat-min"] = locality_json["Lat Min"]
-		locality["lat-sec"] = locality_json["Lat Sec"]
-		locality["lon-deg"] = locality_json["Lon Deg"]
-		locality["lon-min"] = locality_json["Lon Min"]
-		locality["lon-sec"] = locality_json["Lon Sec"]
-		locality["decimal-degree"] = locality_json["Decimal Degree"]
-		locality["max-age"] = locality_json["Max Age (Ma)"]
-		locality["min-age"] = locality_json["Min Age (Ma)"]
+		locality["lat-deg"] = int(locality_json["Lat Deg"])
+		locality["lat-min"] = int(locality_json["Lat Min"])
+		locality["lat-sec"] = int(locality_json["Lat Sec"])
+		locality["lon-deg"] = int(locality_json["Lon Deg"])
+		locality["lon-min"] = int(locality_json["Lon Min"])
+		locality["lon-sec"] = int(locality_json["Lon Sec"])
+		locality["coordinates"] = locality_json["Decimal Degree"]
 		locality["dated-locality-label"] = locality_json["Dated Locality (Max Age)"]
 		locality["dated-locality-mindat-id"]  = locality_json["Dated Locality ID"]
 		locality["dated-locality-mindat-url"] = "http://www.mindat.org/loc-" + locality_json["Dated Locality ID"] + ".html"
+		mineral_specimen = json.loads("{}")
+		if locality_json["Max Age (Ma)"] is not "": mineral_specimen["max-age"] = float(locality_json["Max Age (Ma)"])
+		if locality_json["Min Age (Ma)"] is not "": mineral_specimen["min-age"] = float(locality_json["Min Age (Ma)"])
+		if locality_json["Label 1"] is not "": mineral_specimen["label-1"] = locality_json["Label 1"]
+		if locality_json["Label 2"] is not "": mineral_specimen["label-2"] = locality_json["Label 2"]
+		if locality_json["Label 3"] is not "": mineral_specimen["label-3"] = locality_json["Label 3"]
 		# Put mineral and locality info into mineral_observation
-		mineral_observation = json.loads('{"mineral":{},"locality":{}}')
-		mineral_observation["mineral"] = mineral
+		mineral_observation = json.loads('{}')
+		mineral_observation["mineral-species"] = mineral_species
 		mineral_observation["locality"] = locality
+		mineral_observation["mineral-specimen"] = mineral_specimen
 		# Next, append to min-obs list and complete one entry, and also add item to bulk
 		bulk_file.write(es_index_line)
 		bulk_file.write(json.dumps(mineral_observation) + "\n")
-		# mineral_observations.append(mineral_observation)
+		mineral_observations.append(mineral_observation)
 
 
-# print(json.dumps(mineral_observations[2], indent=2, sort_keys=True))
+print(json.dumps(mineral_observations[2], indent=2, sort_keys=True))
 # print(len(mineral_observations))
 

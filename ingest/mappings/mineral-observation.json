@@ -25,20 +25,20 @@
           "dated-locality-mindat-url":{  
             "type":"string"
           },
-          "decimal-degree":{  
-            "type":"string"
+          "coordinates":{  
+            "type":"geo_point"
           },
           "lat":{  
             "type":"double"
           },
           "lat-deg":{  
-            "type":"string"
+            "type":"integer"
           },
           "lat-min":{  
-            "type":"string"
+            "type":"integer"
           },
           "lat-sec":{  
-            "type":"string"
+            "type":"integer"
           },
           "locality-label":{  
             "type":"multi_field",
@@ -63,19 +63,13 @@
             "type":"double"
           },
           "lon-deg":{  
-            "type":"string"
+            "type":"integer"
           },
           "lon-min":{  
-            "type":"string"
+            "type":"integer"
           },
           "lon-sec":{  
-            "type":"string"
-          },
-          "max-age":{  
-            "type":"string"
-          },
-          "min-age":{  
-            "type":"string"
+            "type":"integer"
           },
           "region":{  
             "type":"multi_field",
@@ -92,7 +86,7 @@
           }
         }
       },
-      "mineral":{  
+      "mineral-species":{
         "properties":{  
           "chemistry-elements-list":{  
             "type":"multi_field",
@@ -145,6 +139,25 @@
             "type":"string"
           },
           "year-first-published":{  
+            "type":"string"
+          }
+        }
+      },
+      "mineral-specimen":{
+        "properties":{
+          "max-age":{
+            "type":"double"
+          },
+          "min-age":{
+            "type":"double"
+          },
+          "label-1":{
+            "type":"string"
+          },
+          "label-2":{
+            "type":"string"
+          },
+          "label-3":{
             "type":"string"
           }
         }
