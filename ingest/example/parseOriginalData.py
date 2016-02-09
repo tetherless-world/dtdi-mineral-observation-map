@@ -64,6 +64,7 @@ for mineral_json in mineral_list_JSON[0:10]:
 		locality["dated-locality-mindat-id"]  = locality_json["Dated Locality ID"]
 		locality["dated-locality-mindat-url"] = "http://www.mindat.org/loc-" + locality_json["Dated Locality ID"] + ".html"
 		mineral_specimen = json.loads("{}")
+		mineral_specimen["age-unit"] = "Ma"
 		if locality_json["Max Age (Ma)"] is not "": mineral_specimen["max-age"] = float(locality_json["Max Age (Ma)"])
 		if locality_json["Min Age (Ma)"] is not "": mineral_specimen["min-age"] = float(locality_json["Min Age (Ma)"])
 		if locality_json["Label 1"] is not "": mineral_specimen["label-1"] = locality_json["Label 1"]

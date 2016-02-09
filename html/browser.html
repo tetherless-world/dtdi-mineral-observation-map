@@ -34,7 +34,7 @@
 
                 {{#if mineral-specimen.min-age}}
                 <div>
-                    <strong>Min Age:</strong> {{mineral-specimen.min-age}} Ma
+                    <strong>Min Age:</strong> {{mineral-specimen.min-age}} {{mineral-specimen.age-unit}}
                     {{#if mineral-specimen.label-1}}<sup>{{mineral-specimen.label-1}}</sup>{{/if}}
                     {{#if mineral-specimen.label-2}}<sup>{{mineral-specimen.label-2}}</sup>{{/if}}
                     {{#if mineral-specimen.label-3}}<sup>{{mineral-specimen.label-3}}</sup>{{/if}}
@@ -42,7 +42,7 @@
                 {{/if}}
                 {{#if mineral-specimen.max-age}}
                 <div>
-                    <strong>Max Age:</strong> {{mineral-specimen.max-age}} Ma
+                    <strong>Max Age:</strong> {{mineral-specimen.max-age}} {{mineral-specimen.age-unit}}
                     {{#if mineral-specimen.label-1}}<sup>{{mineral-specimen.label-1}}</sup>{{/if}}
                     {{#if mineral-specimen.label-2}}<sup>{{mineral-specimen.label-2}}</sup>{{/if}}
                     {{#if mineral-specimen.label-3}}<sup>{{mineral-specimen.label-3}}</sup>{{/if}}

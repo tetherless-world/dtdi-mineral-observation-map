@@ -151,6 +151,9 @@
           "min-age":{
             "type":"double"
           },
+          "age-unit":{
+            "type":"string"
+          },
           "label-1":{
             "type":"string"
           },
