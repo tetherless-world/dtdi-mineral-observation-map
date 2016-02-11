@@ -34,8 +34,9 @@
                     <div><strong>Latitutde:</strong>  {{locality.lat}}</div>
                 </div>
 
-                {{#if locality.min-age}}<div><strong>Min Age:</strong> {{locality.min-age}} Ma</div>{{/if}}
-                {{#if locality.max-age}}<div><strong>Max Age:</strong> {{locality.max-age}} Ma</div>{{/if}}
+                {{#if locality.min-age}}
+                <div><strong>Age:</strong> {{locality.min-age}} - {{locality.max-age}} Ma</div>
+                {{/if}}
 
                 {{/if}}
 
@@ -61,7 +62,6 @@
             }
             return out;
         });
-
 
         var source = $("#mineral-observation-template").html();
         var template = Handlebars.compile(source);
