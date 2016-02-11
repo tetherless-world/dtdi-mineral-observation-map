@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DTDI Mineral Observation Map</title>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.1/handlebars.min.js"></script>
+
+    <link rel="stylesheet" href="//js.arcgis.com/3.14/esri/css/esri.css">
+    <script src="//js.arcgis.com/3.14/"></script>
+
+    <script src="facetview2/vendor/jquery/1.7.1/jquery-1.7.1.min.js"></script>
+    <link rel="stylesheet" href="facetview2/vendor/bootstrap/css/bootstrap.min.css">
+    <script type="text/javascript" src="facetview2/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="facetview2/vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.css">
+    <script type="text/javascript" src="facetview2/vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.min.js"></script>
+
+    <script type="text/javascript" src="facetview2/es.js"></script>
+    <script type="text/javascript" src="facetview2/bootstrap2.facetview.theme.js"></script>
+    <script type="text/javascript" src="facetview2/jquery.facetview2.js"></script>
+    <link rel="stylesheet" href="facetview2/css/facetview.css">
+
+    <script id="mineral-observation-template" type="text/x-handlebars-template">
+        <tr>
+            <td>
+                {{#if mineral.mineral-name-plain}}<div><strong>Mineral Name:</strong> <a href="{{mineral.mineral-mindat-url}}" target="_blank"> {{mineral.mineral-name-plain}}</a></div>
+                {{else}} <div><strong>Mineral Name:</strong> N/A</div>
+                {{/if}}
+
+                {{#if locality}}
+                <div> <strong>Locality: </strong><a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.locality-label}}</a></div>
+                <div>
+                    <div><strong>Longtitude:</strong>  {{locality.lon}}</div>
+                    <div><strong>Latitutde:</strong>  {{locality.lat}}</div>
+                </div>
+
+                {{#if locality.min-age}}<div><strong>Min Age:</strong> {{locality.min-age}} Ma</div>{{/if}}
+                {{#if locality.max-age}}<div><strong>Max Age:</strong> {{locality.max-age}} Ma</div>{{/if}}
+
+                {{/if}}
+
+                {{#if description}}<div><strong>Mineral Description:</strong> {{description}}</div>{{/if}}
+
+                {{#if mineral.rruff-chemistry-html}}<div><strong>Mineral Chemistry:</strong> {{{mineral.rruff-chemistry-html}}}</div>{{/if}}
+
+                {{!-- link to MINDAT profile (badge?) --}}
+            </td>
+        </tr>
+    </script>
+
+    <script type="text/javascript">
+
+        Handlebars.registerHelper('expand', function(items, options) {
+            var out = "";
+            var j = items.length - 1;
+            for(var i = 0; i < items.length; i++) {
+                out += options.fn(items[i]);
+                if(i < j) {
+                    out += "; ";
+                }
+            }
+            return out;
+        });
+
+
+        var source = $("#mineral-observation-template").html();
+        var template = Handlebars.compile(source);
+    </script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function($) {
+            $('.dtdi-map').facetview({
+                search_url: 'https://deeptime.tw.rpi.edu/es/dtdi/mineral-observation/_search',
+                page_size: 5000,
+                sharesave_link: true,
+                search_button: true,
+                default_freetext_fuzzify: "*",
+                default_facet_operator: "AND",
+                default_facet_order: "count",
+                default_facet_size: 15,
+                facets: [
+                    {'field': 'mineral.mineral-name-plain.exact', 'display': 'Mineral Name', 'open': 'true'},
+                    {'field': 'mineral.chemistry-elements-list.exact', 'display': 'Mineral Elements'},
+                    {'field': 'locality.country.exact', 'display': 'Country'},
+                    {'field': 'locality.region.exact', 'display': 'Region'},
+                    {'field': 'locality.locality-label.exact', 'display': 'Locality'}
+                ],
+                render_result_record: function(options, record)
+                {
+                    // do not render results in standard result set.
+                    // results are rendered in map pop-ups
+                    return "";
+                },
+                selected_filters_in_facet: true,
+                show_filter_field : true,
+                show_filter_logic: true,
+                post_init_callback: function(options, context) {
+                    $(".facetview_searching")
+                            .after("<div id='map'></div>");
+                },
+                post_render_callback: function(options, context) {
+
+                    $("#map").children().remove();
+
+                    var map;
+
+                    require([
+                        "esri/map",
+                        "esri/layers/FeatureLayer",
+                        "esri/dijit/PopupTemplate",
+                        "esri/geometry/Point",
+                        "esri/graphic",
+                        "dojo/on",
+                        "dojo/_base/array",
+                        "dojo/domReady!"
+                    ], function(Map, FeatureLayer, PopupTemplate, Point, Graphic, on, array) {
+                        map = new Map("map", {
+                            basemap: "oceans",
+                            center: [0, 0],
+                            zoom: 2
+                        });
+
+                        // Hide the popup if its outside the map's extent
+                        map.on("mouse-drag", function(evt) {
+                            if (map.infoWindow.isShowing) {
+                                var loc = map.infoWindow.getSelectedFeature().geometry;
+                                if (!map.extent.contains(loc)) {
+                                    map.infoWindow.hide();
+                                }
+                            }
+                        });
+
+                        var featureCollection = {
+                            "layerDefinition": null,
+                            "featureSet": {
+                                "features": [],
+                                "geometryType": "esriGeometryPoint"
+                            }
+                        };
+
+                        featureCollection.layerDefinition = {
+                            "geometryType": "esriGeometryPoint",
+                            "mindatIdField": "mindatID",
+                            "drawingInfo": {
+                                "renderer": {
+                                    "type": "simple",
+                                    "symbol": {
+                                        "type": "esriSMS",
+                                        "style": "esriSMSCircle",
+                                        "size": 8,
+                                        "color": [255, 0, 0, 196],
+                                        "outline": {
+                                            "color": [128, 128, 128, 128],
+                                            "width": 1,
+                                            "type": "esriSLS",
+                                            "style": "esriSLSSolid"
+                                        }
+                                    }
+                                }
+                            },
+
+                            "fields": [
+                                {
+                                    "name": "mindatID",
+                                    "alias": "mindatID",
+                                    "type": "esriFieldTypeOID"
+                                },
+                                {
+                                    "name": "mineral-name",
+                                    "alias": "Mineral Name",
+                                    "type": "esriFieldTypeString"
+                                }
+                            ]
+                        };
+
+                        // Define a popup template
+                        var popupTemplate = new PopupTemplate({
+                            title: "{mineral-name}",
+                            description: "{description}"
+                        });
+
+                        // Create a feature layer based on the feature collection
+                        var featureLayer = new FeatureLayer(featureCollection, {
+                            id: 'mineralObservationLayer',
+                            infoTemplate: popupTemplate
+                        });
+
+                        // Associate the features with the popup on click
+                        featureLayer.on("click", function(evt) {
+                            map.infoWindow.setFeatures([evt.graphic]);
+                        });
+
+                        map.on("layers-add-result", function(results) {
+                            renderPopups();
+                        });
+
+                        map.addLayers([featureLayer]);
+
+                        function renderPopups() {
+                            var records = options.data.records;
+                            var data = {};
+
+                            for (var i = 0; i < records.length; i++) {
+                                var observation = records[i];
+                                var locality = observation.locality;
+                                if (locality.lat && typeof locality.lat !== "undefined" && locality.lon && typeof locality.lon !== "undefined") {
+                                    var mindat = locality["locality-mindat-id"];
+                                    if (!(mindat in data)) {
+                                        data[mindat] = {
+                                            "locality": locality,
+                                            "observations": []
+                                        };
+                                    }
+                                    data[mindat]["observations"].push(observation);
+                                }
+                            }
+
+                            var features = [];
+
+                            for (var item in data) {
+
+                                observation = data[item].observations[0];
+                                var _locality = observation.locality;
+
+                                var attr = {};
+                                attr["title"] = _locality["locality-mindat-url"];
+                                attr["description"] = template(observation).trim();
+
+                                var geometry = new Point(parseFloat(_locality.lon), parseFloat(_locality.lat));
+                                var graphic = new Graphic(geometry);
+                                graphic.setAttributes(attr);
+                                features.push(graphic);
+                            }
+
+                            featureLayer.applyEdits(features, null, null);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <style type="text/css">
+
+        .map {
+            width: 95%;
+            height: 600px;
+            margin-bottom: 20px;
+            /*margin-right: 20px;*/
+        }
+
+        .esriViewPopup p {
+            margin: 0;
+            font-size: 10px;
+            line-height: 12px;
+            text-indent: 0;
+        }
+        .esriViewPopup .hzLine {
+            border: none;
+            margin: 0;
+        }
+        .esriViewPopup .header {
+            background-color: white;
+        }
+        .esriPopup .title {
+            color: white;
+        }
+
+        .pagination {
+            display: none;
+        }
+        .facetview_pagesize, .facetview_order {
+            display: none;
+        }
+
+        #facetview_results {
+            display: none;
+        }
+
+        #facetview_filters {
+            margin-left: 10px;
+        }
+
+        #facetview_rightcol {
+            margin-top: 10px;
+        }
+
+    </style>
+
+</head>
+<body>
+<div class="dtdi-map"></div>
+</body>
+</html>
