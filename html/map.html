@@ -30,8 +30,8 @@
                 {{#if locality}}
                 <div> <strong>Locality: </strong><a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.locality-label}}</a></div>
                 <div>
-                    <div><strong>Longtitude:</strong>  {{locality.lon}}</div>
-                    <div><strong>Latitutde:</strong>  {{locality.lat}}</div>
+                    <div><strong>Longitude:</strong>  {{roundCoordinate locality.lon}}</div>
+                    <div><strong>Latitude:</strong>  {{roundCoordinate locality.lat}}</div>
                 </div>
 
                 {{#if locality.min-age}}
@@ -61,6 +61,10 @@
                 }
             }
             return out;
+        });
+        
+        Handlebars.registerHelper('roundCoordinate', function(number) {
+            return Number(number.toFixed(7)).toString();
         });
 
         var source = $("#mineral-observation-template").html();
