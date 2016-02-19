@@ -28,7 +28,7 @@ A file called `[output]` will be generated.
 
 
 
-### Exporting Data from RRUFF IMA Database UI
+## Exporting Data from RRUFF IMA Database UI
 
 1. Go to [http://rruff.info/ima/] and log in.
 
