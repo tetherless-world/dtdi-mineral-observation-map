@@ -20,7 +20,7 @@
     <script id="mineral-observation-template" type="text/x-handlebars-template">
         <tr>
             <td>
-                {{#if mineral.mineral-name-plain}}<div><strong>Mineral Name:</strong> <a href="{{mineral.mineral-mindat-url}}" target="_blank"> {{mineral.mineral-name-plain}}</a></div>
+                {{#if mineral-species.mineral-name-plain}}<div><strong>Mineral Name:</strong> <a href="{{mineral-species.mineral-mindat-url}}" target="_blank"> {{mineral-species.mineral-name-plain}}</a></div>
                 {{else}} <div><strong>Mineral Name:</strong> N/A</div>
                 {{/if}}
 
@@ -29,17 +29,31 @@
                 <div>
                     <strong>Longtitude:</strong>  {{locality.lon}}
                     <strong>Latitutde:</strong>  {{locality.lat}}
-                    <a href="http://www.google.com/maps/place/{{locality.decimal-degree}}" target="_blank"> (View in Google Map)</a>
+                    <a href="http://www.google.com/maps/place/{{locality.coordinates}}" target="_blank"> (View in Google Map)</a>
                 </div>
 
-                {{#if locality.min-age}}<div><strong>Min Age:</strong> {{locality.min-age}}</div>{{/if}}
-                {{#if locality.max-age}}<div><strong>Max Age:</strong> {{locality.max-age}}</div>{{/if}}
+                {{#if mineral-specimen.min-age}}
+                <div>
+                    <strong>Min Age:</strong> {{mineral-specimen.min-age}} {{mineral-specimen.age-unit}}
+                    {{#if mineral-specimen.label-1}}<sup>{{mineral-specimen.label-1}}</sup>{{/if}}
+                    {{#if mineral-specimen.label-2}}<sup>{{mineral-specimen.label-2}}</sup>{{/if}}
+                    {{#if mineral-specimen.label-3}}<sup>{{mineral-specimen.label-3}}</sup>{{/if}}
+                </div>
+                {{/if}}
+                {{#if mineral-specimen.max-age}}
+                <div>
+                    <strong>Max Age:</strong> {{mineral-specimen.max-age}} {{mineral-specimen.age-unit}}
+                    {{#if mineral-specimen.label-1}}<sup>{{mineral-specimen.label-1}}</sup>{{/if}}
+                    {{#if mineral-specimen.label-2}}<sup>{{mineral-specimen.label-2}}</sup>{{/if}}
+                    {{#if mineral-specimen.label-3}}<sup>{{mineral-specimen.label-3}}</sup>{{/if}}
+                </div>
+                {{/if}}
 
                 {{/if}}
 
                 {{#if description}}<div><strong>Mineral Description:</strong> {{description}}</div>{{/if}}
 
-                {{#if mineral.rruff-chemistry-html}}<div><strong>Mineral Chemistry:</strong> {{{mineral.rruff-chemistry-html}}}</div>{{/if}}
+                {{#if mineral-species.rruff-chemistry-html}}<div><strong>Mineral Chemistry:</strong> {{{mineral-species.rruff-chemistry-html}}}</div>{{/if}}
 
                 {{!-- link to MINDAT profile (badge?) --}}
             </td>
@@ -78,8 +92,30 @@
                 default_facet_order: "count",
                 default_facet_size: 15,
                 facets: [
-                    {'field': 'mineral.mineral-name-plain.exact', 'display': 'Mineral Name'},
-                    {'field': 'mineral.chemistry-elements-list.exact', 'display': 'Mineral Elements'},
+                    {'field': 'mineral-species.mineral-name-plain.exact', 'display': 'Mineral Name'},
+                    {'field': 'mineral-species.chemistry-elements-list.exact', 'display': 'Mineral Elements'},
+                    {
+                        'type' : 'range',
+                        'field': 'mineral-specimen.min-age',
+                        'display': 'Min Age',
+                        'range': [
+                            {'to': 100, 'display': '0 - 100 Ma'},
+                            {'from': 100, 'to': 200, 'display': '100 - 200 Ma'},
+                            {'from': 200, 'display': 'greater than 200 Ma'}
+                        ],
+                        'open': 'true'
+                    },
+                    {
+                        'type' : 'range',
+                        'field': 'mineral-specimen.max-age',
+                        'display': 'Max Age',
+                        'range': [
+                            {'to': 100, 'display': '0 - 100 Ma'},
+                            {'from': 100, 'to': 200, 'display': '100 - 200 Ma'},
+                            {'from': 200, 'display': 'greater than 200 Ma'}
+                        ],
+                        'open': 'true'
+                    },
                     {'field': 'locality.country.exact', 'display': 'Country'},
                     {'field': 'locality.region.exact', 'display': 'Region'},
                     {'field': 'locality.locality-label.exact', 'display': 'Locality'}
@@ -97,8 +133,84 @@
         });
     </script>
 
+    <style type="text/css">
+        .direct_date {
+        background: #BBFFBB;    /* light green */
+        }
+        .indirect_mineral_date {
+        background: #DDFFFF;      /* light cyan */
+        }
+
+        .indirect_element_date {
+        background: #FFFFAA;    /* light yellow */
+        }
+        .locality_date {
+        background: #FFD088;    /* light orange */
+        }
+        .indirect_locality_date {
+        background: #FFCCCC;    /* light red */
+        }
+        .shown_date {
+        background: #55FF55; /* green */
+        }
+        .hidden_date {
+        background: #FF5555;  /* red */
+        }
+        .row_no_display {
+        display: none;
+        }
+        .date_no_display {
+        display: none;
+        }
+    </style>
+
 </head>
 <body>
 <div class="dtdi-map"></div>
+<div>
+    <table border="1" cellspacing="3">
+        <tr>
+            <td class="shown_date">&nbsp;&nbsp;&nbsp;</td>
+            <td>
+                This age satisfies at least one of these three conditions:</br>
+                1) Mindat claims that this mineral occurs at this locality.</br>
+                2) The locality containing the mineral has an age directly assigned to it.</br>
+                3) This locality is displaying an age from a non-child locality.
+            </td>
+        </tr>
+        <tr>
+            <td class="hidden_date">&nbsp;&nbsp;&nbsp;</td>
+            <td>This age does not satisfy any of the above conditions.</td>
+        </tr>
+    </table>
+    </br>
+    </br>
+    <table border="1" cellspacing="3">
+        <tr>
+            <td class="direct_date">&nbsp;G&nbsp;</td>
+            <td>This mineral is directly dated.</td>
+        </tr>
+        <tr>
+            <td class="indirect_mineral_date">&nbsp;B&nbsp;</td>
+            <td>This mineral is explicitely specified as having an age.</td>
+        </tr>
+        <tr>
+            <td class="indirect_element_date">&nbsp;Y&nbsp;</td>
+            <td>This mineral is using an age from a mineralization period.</td>
+        </tr>
+        <tr>
+            <td class="locality_date">&nbsp;O&nbsp;</td>
+            <td>This mineral is using an age calculated from all data at the locality.</td>
+        </tr>
+        <tr>
+            <td class="indirect_locality_date">&nbsp;R&nbsp;</td>
+            <td>The age displayed for this mineral is coming from a different, non-child locality.</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>This mineral is not associated with an age.</td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
