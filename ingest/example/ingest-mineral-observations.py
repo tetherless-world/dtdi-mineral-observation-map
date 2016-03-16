@@ -89,7 +89,7 @@ def main():
             locality["lon-deg"] = locality_json["Lon Deg"]
             locality["lon-min"] = locality_json["Lon Min"]
             locality["lon-sec"] = locality_json["Lon Sec"]
-            locality["decimal-degree"] = locality_json["Decimal Degree"]
+            locality["coordinates"] = locality_json["Decimal Degree"]
             if locality_json["Max Age (Ma)"] is not "": locality["max-age"] = float(locality_json["Max Age (Ma)"])
             if locality_json["Min Age (Ma)"] is not "": locality["min-age"] = float(locality_json["Min Age (Ma)"])
             locality["dated-locality-label"] = locality_json["Dated Locality (Max Age)"]

@@ -25,20 +25,21 @@
           "dated-locality-mindat-url":{  
             "type":"string"
           },
-          "decimal-degree":{  
-            "type":"string"
+          "coordinates":{
+            "type":"geo_point",
+            "lat_lon":true
           },
           "lat":{  
             "type":"double"
           },
           "lat-deg":{  
-            "type":"string"
+            "type":"integer"
           },
           "lat-min":{  
-            "type":"string"
+            "type":"integer"
           },
           "lat-sec":{  
-            "type":"string"
+            "type":"integer"
           },
           "locality-label":{  
             "type":"multi_field",
@@ -63,13 +64,13 @@
             "type":"double"
           },
           "lon-deg":{  
-            "type":"string"
+            "type":"integer"
           },
           "lon-min":{  
-            "type":"string"
+            "type":"integer"
           },
           "lon-sec":{  
-            "type":"string"
+            "type":"integer"
           },
           "max-age":{  
             "type":"double"
