@@ -1,95 +1,71 @@
-***This is temporarily a scratch pad and will be a formatted README as it goes on***
+## Ingest Instructions
 
-### Installing Instructions
+#### Step 1 Generate JSON file
 
-1. To generate bulk-file, change directory to `dtdi-mineral-observation-map/ingest/example` and execute:
+Change directory to 
 
-`python3 parseOriginalData.py` 
+`dtdi-mineral-observation-map/ingest/example` 
 
-A bulk upload file called `bulk-file` will be generated.
+and execute
 
-2. To upload file to elasticsearch:
+`python3 ingest-mineral-observations.py [output]` 
 
-(1) Delete the existing data and mapping: `curl -XDELETE 'localhost:9200/dtdi/mineral-observation'`
+A file called `[output]` will be generated.
 
-(2) Upload the mapping file:
+#### Step 2 Upload file to elasticsearch
+
+* Delete the existing data and mapping: 
+
+`curl -XDELETE 'localhost:9200/dtdi/mineral-observation'`
+
+* Upload the mapping file:
+
 `curl -XPUT 'localhost:9200/dtdi/mineral-observation/_mapping?pretty' --data-binary @../mappings/mineral-observation-new.json`
 
-(3) Upload the bulk file:
+* Upload the bulk file:
+
 `curl -XPOST 'localhost:9200/_bulk' --data-binary @bulk_file`
 
-====================================================================
-** Below are scratches and miscellaneous info. Please ignore for now**
 
-1) Go to http://rruff.info/ima/ and log in.
 
-2) Select "IMA Approved Minerals Only"
+## Exporting Data from RRUFF IMA Database UI
 
-3) Export Minerals. Export Options: (Below are the useful ones, almost is everything)
+1. Go to [http://rruff.info/ima/] and log in.
 
-  - Mineral Name (plain)
-  - RRUFF Chemistry (plain)
-  - RRUFF Chemistry (concise)
-  - IMA Chesmistry (plain)
-  - IMA Chesmistry (concise)
-  - Chemical Elements
-  - RRUFF IDs
-  - IMA Number
-  - Database ID***?
-  - Country 
-  - Structural Groupname
-  - Fleischers Groupname
-  - IMA Status
-  - Status Notes
-  - Year First Published
+2. Select "IMA Approved Minerals Only"
 
-Mindat link: www.mindat.org/search.php?name=Abelsonite
-or: http://www.mindat.org/show.php?name=Abelsonite
+3. Export IMA mineral list to a CSV file. Export Options: (Below are the useful ones, almost is everything)
 
-4) Export Evolution Records for each minerals
-First go to http://rruff.info/mineral_list/locality.php?mineral_name=xxxxxxxxxxx(the mineral name, not case-sensitive)
-Click "Show GPS"
-Click "Export Table"
-Save the data from the 3rd column to an csv file. ()
+    - Mineral Name (plain)
+    - RRUFF Chemistry (plain)
+    - RRUFF Chemistry (concise)
+    - IMA Chesmistry (plain)
+    - IMA Chesmistry (concise)
+    - Chemical Elements
+    - RRUFF IDs
+    - IMA Number
+    - Database ID
+    - Country 
+    - Structural Groupname
+    - Fleischers Groupname
+    - IMA Status
+    - Status Notes
+    - Year First Published
+    
+4. Manually export Evolution Records for each minerals (e.g. Abelsonite)
 
-Locality IDs:
-http://rruff.info/mineral_list/locality.php?mindat_id=20265
-http://www.mindat.org/loc-20265.html
+    - First go to `http://rruff.info/mineral_list/locality.php?mineral_name=abelsonite`
+    - Click "Show GPS"
+    - Click "Export Table"
+    - Save the data to a csv file, named `Abelsonite.csv`
 
 
 
+## Miscellaneous Notes
 
-Does these matter in the future
-    This age satisfies at least one of these three conditions:
-1) Mindat claims that this mineral occurs at this locality.
-2) The locality containing the mineral has an age directly assigned to it.
-3) This locality is displaying an age from a non-child locality.
-    This age does not satisfy any of the above conditions.
-
- G  This mineral is directly dated.
- B  This mineral is explicitely specified as having an age.
- Y  This mineral is using an age from a mineralization period.
- O  This mineral is using an age calculated from all data at the locality.
- R  The age displayed for this mineral is coming from a different, non-child locality.
-  This mineral is not associated with an age.
+* For each mineral, say Abelsonite, 'www.mindat.org/search.php?name=Abelsonite' or
+    'http://www.mindat.org/show.php?name=Abelsonite' will be redirected to its page on mindat.
 
 
-
-
-
-
-*** Some scripts for convenience. Just as a scratchpad for now ***
-
-
-curl -XPUT 'localhost:9200/dtdi/mineral-observation/_mapping?pretty' --data-binary @mappings/mineral-observation.json 
-
-
-curl -XPOST 'localhost:9200/_bulk' --data-binary @[out]
-
-curl -XGET 'localhost:9200/dtdi/mineral-observation/_mapping?pretty'
-
-DELETE dtdi/mineral-observation
-
-GET /dtdi/mineral-observation/_mapping
-
-GET /dtdi/mineral-observation/_search
+* Given a locality ID, 'http://rruff.info/mineral_list/locality.php?mindat_id=20265'
+    or 'http://www.mindat.org/loc-20265.html' will be redirected to its page on mindat.
