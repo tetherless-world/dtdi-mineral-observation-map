@@ -25,6 +25,7 @@
                 {{/if}}
 
                 {{#if locality}}
+
                 <div> <strong>Locality: </strong><a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.locality-label}}</a></div>
                 <div>
                     <strong>Longtitude:</strong>  {{locality.lon}}
@@ -33,14 +34,9 @@
                 </div>
 
                 {{#if locality.min-age}}
-                <div>
-                    <strong>Min Age:</strong> {{locality.min-age}}
-                </div>
-                {{/if}}
-                {{#if locality.max-age}}
-                <div>
-                    <strong>Max Age:</strong> {{locality.max-age}}
-                </div>
+                    {{#if locality.max-age}}
+                        <div><strong>Age:</strong> {{locality.min-age}} - {{locality.max-age}} Ma</div>
+                    {{/if}}
                 {{/if}}
 
                 {{/if}}
