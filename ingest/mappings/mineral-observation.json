@@ -72,10 +72,10 @@
             "type":"string"
           },
           "max-age":{  
-            "type":"string"
+            "type":"double"
           },
-          "min-age":{  
-            "type":"string"
+          "min-age":{
+            "type":"double"
           },
           "region":{  
             "type":"multi_field",

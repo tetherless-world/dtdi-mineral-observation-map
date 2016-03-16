@@ -32,8 +32,16 @@
                     <a href="http://www.google.com/maps/place/{{locality.decimal-degree}}" target="_blank"> (View in Google Map)</a>
                 </div>
 
-                {{#if locality.min-age}}<div><strong>Min Age:</strong> {{locality.min-age}}</div>{{/if}}
-                {{#if locality.max-age}}<div><strong>Max Age:</strong> {{locality.max-age}}</div>{{/if}}
+                {{#if locality.min-age}}
+                <div>
+                    <strong>Min Age:</strong> {{locality.min-age}}
+                </div>
+                {{/if}}
+                {{#if locality.max-age}}
+                <div>
+                    <strong>Max Age:</strong> {{locality.max-age}}
+                </div>
+                {{/if}}
 
                 {{/if}}
 
@@ -80,6 +88,28 @@
                 facets: [
                     {'field': 'mineral.mineral-name-plain.exact', 'display': 'Mineral Name'},
                     {'field': 'mineral.chemistry-elements-list.exact', 'display': 'Mineral Elements'},
+                    {
+                        'type' : 'range',
+                        'field': 'locality.min-age',
+                        'display': 'Min Age',
+                        'range': [
+                            {'to': 100, 'display': '0 - 100 Ma'},
+                            {'from': 100, 'to': 200, 'display': '100 - 200 Ma'},
+                            {'from': 200, 'display': 'greater than 200 Ma'}
+                        ],
+                        'open': 'true'
+                    },
+                    {
+                        'type' : 'range',
+                        'field': 'locality.max-age',
+                        'display': 'Max Age',
+                        'range': [
+                            {'to': 100, 'display': '0 - 100 Ma'},
+                            {'from': 100, 'to': 200, 'display': '100 - 200 Ma'},
+                            {'from': 200, 'display': 'greater than 200 Ma'}
+                        ],
+                        'open': 'true'
+                    },
                     {'field': 'locality.country.exact', 'display': 'Country'},
                     {'field': 'locality.region.exact', 'display': 'Region'},
                     {'field': 'locality.locality-label.exact', 'display': 'Locality'}
