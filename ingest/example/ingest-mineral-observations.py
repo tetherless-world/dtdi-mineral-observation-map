@@ -48,7 +48,7 @@ def main():
 
         mineral_species = json.loads("{}")
         mineral_species["mineral-name-plain"] = mineral_json["Mineral Name (plain)"]
-        mineral_species["chemistry-elements-list"] = mineral_json["Chemistry Elements"].strip().split(" ")
+        mineral_species["elements"] = mineral_json["Chemistry Elements"].strip().split(" ")
         mineral_species["mineral-mindat-url"] = requests.get(
             "http://www.mindat.org/search.php?name=" + mineral_json["Mineral Name (plain)"]).url
         mineral_species["country-of-type-locality"] = mineral_json["Country of Type Locality"]

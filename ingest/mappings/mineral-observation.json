@@ -136,18 +136,9 @@
       },
       "mineral-species":{
         "properties":{
-          "chemistry-elements-list":{
-            "type":"multi_field",
-            "fields":{
-              "chemistry-elements-list":{
-                "type":"string",
-                "index":"analyzed"
-              },
-              "exact":{
-                "type":"string",
-                "index":"not_analyzed"
-              }
-            }
+          "elements":{
+            "type": "string",
+            "index": "not_analyzed"
           },
           "country-of-type-locality":{
             "type":"string"
