@@ -75,7 +75,7 @@
 
         $(document).ready(function($) {
             $('.dtdi-map').facetview({
-                search_url: 'https://deeptime.tw.rpi.edu/es/dtdi/mineral-observation/_search',
+                search_url: 'http://localhost:9200/dtdi/mineral-observation/_search',
                 page_size: 5000,
                 sharesave_link: true,
                 search_button: true,
@@ -86,6 +86,11 @@
                 facets: [
                     {'field': 'mineral.mineral-name-plain.exact', 'display': 'Mineral Name', 'open': 'true'},
                     {'field': 'mineral.chemistry-elements-list.exact', 'display': 'Mineral Elements'},
+                    {'field': 'locality.geologic_time.eon.exact', 'display': 'Geologic Eon'},
+                    {'field': 'locality.geologic_time.era.exact', 'display': 'Geologic Era'},
+                    {'field': 'locality.geologic_time.period.exact', 'display': 'Geologic Period'},
+                    {'field': 'locality.geologic_time.epoch.exact', 'display': 'Geologic Epoch'},
+                    {'field': 'locality.geologic_time.stage.exact', 'display': 'Geologic Stage'},
                     {'field': 'locality.country.exact', 'display': 'Country'},
                     {'field': 'locality.region.exact', 'display': 'Region'},
                     {'field': 'locality.locality-label.exact', 'display': 'Locality'}
