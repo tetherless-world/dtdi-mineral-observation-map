@@ -16,15 +16,6 @@
               }
             }
           },
-          "dated-locality-label":{  
-            "type":"string"
-          },
-          "dated-locality-mindat-id":{  
-            "type":"string"
-          },
-          "dated-locality-mindat-url":{  
-            "type":"string"
-          },
           "coordinates":{
             "type":"geo_point",
             "lat_lon":true
@@ -72,7 +63,24 @@
           "lon-sec":{
             "type":"integer"
           },
-          "max-age":{  
+          "region":{
+            "type":"multi_field",
+            "fields":{
+              "region":{
+                "type":"string",
+                "index":"analyzed"
+              },
+              "exact":{
+                "type":"string",
+                "index":"not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "mineral-specimen":{
+        "properties":{
+          "max-age":{
             "type":"double"
           },
           "min-age":{
@@ -146,30 +154,6 @@
                 }
               }
             }
-          },
-          "region":{  
-          "region":{
-            "type":"multi_field",
-            "fields":{
-              "region":{
-                "type":"string",
-                "index":"analyzed"
-              },
-              "exact":{
-                "type":"string",
-                "index":"not_analyzed"
-              }
-            }
-          }
-        }
-      },
-      "mineral-specimen":{
-        "properties":{
-          "max-age":{
-            "type":"double"
-          },
-          "min-age":{
-            "type":"double"
           },
           "age-unit":{
             "type":"string"

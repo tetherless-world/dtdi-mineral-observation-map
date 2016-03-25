@@ -23,26 +23,38 @@
     <script id="mineral-observation-template" type="text/x-handlebars-template">
         <tr>
             <td>
-                {{#if mineral.mineral-name-plain}}<div><strong>Mineral Name:</strong> <a href="{{mineral.mineral-mindat-url}}" target="_blank"> {{mineral.mineral-name-plain}}</a></div>
-                {{else}} <div><strong>Mineral Name:</strong> N/A</div>
+                {{#if mineral-species.mineral-name-plain}}<div><strong>Mineral Name:</strong> <a href="{{mineral-species.mineral-mindat-url}}" target="_blank">{{mineral-species.mineral-name-plain}}</a></div>
+                {{else}} <div><strong>Mineral Name:</strong>N/A</div>
                 {{/if}}
 
-                {{#if locality}}
-                <div> <strong>Locality: </strong><a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.locality-label}}</a></div>
+                <div>
+                    <strong>Locality: </strong><a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.locality-label}}</a>
+                    <sup>{{mineral-specimen.age-determination-process.mindat-claims-existence.label}}</sup>
+                </div>
                 <div>
                     <div><strong>Longitude:</strong>  {{roundCoordinate locality.lon}}</div>
                     <div><strong>Latitude:</strong>  {{roundCoordinate locality.lat}}</div>
                 </div>
 
-                {{#if locality.min-age}}
-                <div><strong>Age:</strong> {{locality.min-age}} - {{locality.max-age}} Ma</div>
-                {{/if}}
+                {{#if mineral-specimen.min-age}}
+                {{#if mineral-specimen.max-age}}
+                <div>
+                    <strong>Age:</strong> {{mineral-specimen.min-age}} - {{mineral-specimen.max-age}} Ma
+                    {{#if mineral-specimen.age-determination-process.remote-age.label}}
+                    <sup>{{mineral-specimen.age-determination-process.remote-age.label}}</sup>
+                    {{/if}}
+                    {{#if mineral-specimen.age-determination-process.age-info.label}}
+                    <sup>{{mineral-specimen.age-determination-process.age-info.label}}</sup>
+                    {{/if}}
+                </div>
 
                 {{/if}}
+                {{/if}}
 
-                {{#if description}}<div><strong>Mineral Description:</strong> {{description}}</div>{{/if}}
 
-                {{#if mineral.rruff-chemistry-html}}<div><strong>Mineral Chemistry:</strong> {{{mineral.rruff-chemistry-html}}}</div>{{/if}}
+                {{#if mineral-species.description}}<div><strong>Mineral Description:</strong> {{mineral-species.description}}</div>{{/if}}
+
+                {{#if mineral-species.rruff-chemistry-html}}<div><strong>Mineral Chemistry:</strong> {{{mineral-species.rruff-chemistry-html}}}</div>{{/if}}
 
                 {{!-- link to MINDAT profile (badge?) --}}
             </td>
@@ -84,13 +96,13 @@
                 default_facet_order: "count",
                 default_facet_size: 15,
                 facets: [
-                    {'field': 'mineral.mineral-name-plain.exact', 'display': 'Mineral Name', 'open': 'true'},
-                    {'field': 'mineral.chemistry-elements-list.exact', 'display': 'Mineral Elements'},
-                    {'field': 'locality.geologic_time.eon.exact', 'display': 'Geologic Eon'},
-                    {'field': 'locality.geologic_time.era.exact', 'display': 'Geologic Era'},
-                    {'field': 'locality.geologic_time.period.exact', 'display': 'Geologic Period'},
-                    {'field': 'locality.geologic_time.epoch.exact', 'display': 'Geologic Epoch'},
-                    {'field': 'locality.geologic_time.stage.exact', 'display': 'Geologic Stage'},
+                    {'field': 'mineral-species.mineral-name-plain.exact', 'display': 'Mineral Name', 'open': 'true'},
+                    {'field': 'mineral-species.elements', 'display': 'Mineral Elements'},
+                    {'field': 'mineral-specimen.geologic_time.eon.exact', 'display': 'Geologic Eon'},
+                    {'field': 'mineral-specimen.geologic_time.era.exact', 'display': 'Geologic Era'},
+                    {'field': 'mineral-specimen.geologic_time.period.exact', 'display': 'Geologic Period'},
+                    {'field': 'mineral-specimen.geologic_time.epoch.exact', 'display': 'Geologic Epoch'},
+                    {'field': 'mineral-specimen.geologic_time.stage.exact', 'display': 'Geologic Stage'},
                     {'field': 'locality.country.exact', 'display': 'Country'},
                     {'field': 'locality.region.exact', 'display': 'Region'},
                     {'field': 'locality.locality-label.exact', 'display': 'Locality'}

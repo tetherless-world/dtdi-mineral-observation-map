@@ -20,19 +20,10 @@
     <script id="mineral-observation-template" type="text/x-handlebars-template">
         <tr>
             <td>
-                {{#if mineral-species.mineral-name-plain}}
-                    <div>
-                        <strong>Mineral Name:</strong>
-                        <a href="{{mineral-species.mineral-mindat-url}}" target="_blank">{{mineral-species.mineral-name-plain}}</a>
-                    </div>
-                {{else}}
-                    <div>
-                        <strong>Mineral Name:</strong>N/A
-                    </div>
+                {{#if mineral-species.mineral-name-plain}}<div><strong>Mineral Name:</strong><a href="{{mineral-species.mineral-mindat-url}}" target="_blank">{{mineral-species.mineral-name-plain}}</a></div>
+                {{else}} <div><strong>Mineral Name:</strong>N/A</div>
                 {{/if}}
 
-
-                <!--{{#if locality}}-->
 
                 <div>
                     <strong>Locality:</strong>
@@ -83,8 +74,6 @@
                     </div>
                 {{/if}}
                 {{/if}}
-
-                <!--{{/if}}-->
 
 
                 {{#if mineral-species.rruff-chemistry-html}}
@@ -166,11 +155,11 @@
                         ],
                         'open': 'true'
                     },
-                    {'field': 'locality.geologic_time.eon.exact', 'display': 'Geologic Eon'},
-                    {'field': 'locality.geologic_time.era.exact', 'display': 'Geologic Era'},
-                    {'field': 'locality.geologic_time.period.exact', 'display': 'Geologic Period'},
-                    {'field': 'locality.geologic_time.epoch.exact', 'display': 'Geologic Epoch'},
-                    {'field': 'locality.geologic_time.stage.exact', 'display': 'Geologic Stage'},
+                    {'field': 'mineral-specimen.geologic_time.eon.exact', 'display': 'Geologic Eon'},
+                    {'field': 'mineral-specimen.geologic_time.era.exact', 'display': 'Geologic Era'},
+                    {'field': 'mineral-specimen.geologic_time.period.exact', 'display': 'Geologic Period'},
+                    {'field': 'mineral-specimen.geologic_time.epoch.exact', 'display': 'Geologic Epoch'},
+                    {'field': 'mineral-specimen.geologic_time.stage.exact', 'display': 'Geologic Stage'},
                     {'field': 'locality.country.exact', 'display': 'Country'},
                     {'field': 'locality.region.exact', 'display': 'Region'},
                     {'field': 'locality.locality-label.exact', 'display': 'Locality'}
