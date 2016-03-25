@@ -16,6 +16,15 @@
               }
             }
           },
+          "dated-locality-label":{  
+            "type":"string"
+          },
+          "dated-locality-mindat-id":{  
+            "type":"string"
+          },
+          "dated-locality-mindat-url":{  
+            "type":"string"
+          },
           "coordinates":{
             "type":"geo_point",
             "lat_lon":true
@@ -63,6 +72,82 @@
           "lon-sec":{
             "type":"integer"
           },
+          "max-age":{  
+            "type":"double"
+          },
+          "min-age":{
+            "type":"double"
+          },
+          "geologic_time": {
+            "properties": {
+              "eon": {
+                "type":"multi_field",
+                "fields":{
+                  "eon":{
+                    "type":"string",
+                    "index":"analyzed"
+                  },
+                  "exact":{
+                    "type":"string",
+                    "index":"not_analyzed"
+                  }
+                }
+              },
+              "era": {
+                "type":"multi_field",
+                "fields":{
+                  "era":{
+                    "type":"string",
+                    "index":"analyzed"
+                  },
+                  "exact":{
+                    "type":"string",
+                    "index":"not_analyzed"
+                  }
+                }
+              },
+              "period": {
+                "type":"multi_field",
+                "fields":{
+                  "period":{
+                    "type":"string",
+                    "index":"analyzed"
+                  },
+                  "exact":{
+                    "type":"string",
+                    "index":"not_analyzed"
+                  }
+                }
+              },
+              "epoch": {
+                "type":"multi_field",
+                "fields":{
+                  "epoch":{
+                    "type":"string",
+                    "index":"analyzed"
+                  },
+                  "exact":{
+                    "type":"string",
+                    "index":"not_analyzed"
+                  }
+                }
+              },
+              "stage": {
+                "type":"multi_field",
+                "fields":{
+                  "stage":{
+                    "type":"string",
+                    "index":"analyzed"
+                  },
+                  "exact":{
+                    "type":"string",
+                    "index":"not_analyzed"
+                  }
+                }
+              }
+            }
+          },
+          "region":{  
           "region":{
             "type":"multi_field",
             "fields":{
