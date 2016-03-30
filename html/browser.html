@@ -20,30 +20,79 @@
     <script id="mineral-observation-template" type="text/x-handlebars-template">
         <tr>
             <td>
-                {{#if mineral.mineral-name-plain}}<div><strong>Mineral Name:</strong> <a href="{{mineral.mineral-mindat-url}}" target="_blank"> {{mineral.mineral-name-plain}}</a></div>
-                {{else}} <div><strong>Mineral Name:</strong> N/A</div>
+                {{#if mineral-species.mineral-name-plain}}<div><strong>Mineral Name: </strong><a href="{{mineral-species.mineral-mindat-url}}" target="_blank">{{mineral-species.mineral-name-plain}}</a></div>
+                {{else}} <div><strong>Mineral Name: </strong>N/A</div>
                 {{/if}}
 
-                {{#if locality}}
 
-                <div> <strong>Locality: </strong><a href="{{locality.locality-mindat-url}}" target="_blank"> {{locality.locality-label}}</a></div>
                 <div>
-                    <strong>Latitutde:</strong>  {{locality.lat}}
-                    <strong>Longtitude:</strong>  {{locality.lon}}
-                    <a href="http://www.google.com/maps/place/{{locality.coordinates}}" target="_blank"> (View in Google Map)</a>
+                    <strong>Locality:</strong>
+                    <a href="{{locality.locality-mindat-url}}" target="_blank">{{locality.locality-label}}</a>
+                    <sup>{{mineral-specimen.age-determination-process.mindat-claims-existence.label}}</sup>
+                </div>
+                <div style="font-style: italic; text-indent: 20px">
+                    {{#if mineral-specimen.age-determination-process.mindat-claims-existence.label}}
+                        <sup>{{mineral-specimen.age-determination-process.mindat-claims-existence.label}}</sup>
+                        {{mineral-specimen.age-determination-process.mindat-claims-existence.description}}
+                    {{/if}}
                 </div>
 
-                {{#if locality.min-age}}
-                    {{#if locality.max-age}}
-                        <div><strong>Age:</strong> {{locality.min-age}} - {{locality.max-age}} Ma</div>
-                    {{/if}}
+
+                {{#if locality.lat}}{{#if locality.lon}}
+                <div>
+                    <strong>Latitude:</strong> {{locality.lat}}
+                    <strong>Longtitude:</strong> {{locality.lon}}
+                    <a href="http://www.google.com/maps/place/{{locality.coordinates}}" target="_blank"> (View in Google Map)</a>
+                </div>
+                {{/if}}{{/if}}
+
+                {{#if mineral-specimen.min-age}}
+                {{#if mineral-specimen.max-age}}
+                    <div>
+                        <strong>Age:</strong>
+                        {{mineral-specimen.min-age}} - {{mineral-specimen.max-age}} {{mineral-specimen.age-unit}}
+                        {{#if mineral-specimen.age-determination-process.remote-age.label}}
+                            <sup>{{mineral-specimen.age-determination-process.remote-age.label}}</sup>
+                        {{/if}}
+                        {{#if mineral-specimen.age-determination-process.age-info.label}}
+                            <sup>{{mineral-specimen.age-determination-process.age-info.label}}</sup>
+                        {{/if}}
+                    </div>
+                    <div style="font-style: italic; text-indent: 20px">
+                        {{#if mineral-specimen.age-determination-process.remote-age.label}}
+                            <sup>{{mineral-specimen.age-determination-process.remote-age.label}}</sup>
+                            Remote Dated Locality:
+                            <a href="{{mineral-specimen.dated-locality-url}}" target="_blank">{{mineral-specimen.dated-locality-label}}</a>
+                        {{/if}}
+                    </div>
+                    <div style="font-style: italic; text-indent: 20px">
+                        {{#if mineral-specimen.age-determination-process.age-info.label}}
+                            <sup>{{mineral-specimen.age-determination-process.age-info.label}}</sup>
+                            Age Information:
+                            {{mineral-specimen.age-determination-process.age-info.description}}
+                        {{/if}}
+                    </div>
+                {{/if}}
                 {{/if}}
 
+
+                {{#if mineral-species.rruff-chemistry-html}}
+                    <div>
+                        <strong>Mineral Chemistry:</strong>{{{mineral-species.rruff-chemistry-html}}}
+                    </div>
                 {{/if}}
 
-                {{#if description}}<div><strong>Mineral Description:</strong> {{description}}</div>{{/if}}
+                <div>
+                    <a href="http://rruff.info/mineral_list/locality.php?mineral_name={{mineral-species.mineral-name-plain}}" target="_blank"><strong>RRUFF</strong></a>
+                </div>
 
-                {{#if mineral.rruff-chemistry-html}}<div><strong>Mineral Chemistry:</strong> {{{mineral.rruff-chemistry-html}}}</div>{{/if}}
+
+                <!--{{#if description}}-->
+                    <!--<div>-->
+                        <!--<strong>Mineral Description:</strong>{{description}}-->
+                    <!--</div>-->
+                <!--{{/if}}-->
+
 
                 {{!-- link to MINDAT profile (badge?) --}}
             </td>
@@ -82,11 +131,11 @@
                 default_facet_order: "count",
                 default_facet_size: 15,
                 facets: [
-                    {'field': 'mineral.mineral-name-plain.exact', 'display': 'Mineral Name'},
-                    {'field': 'mineral.chemistry-elements-list.exact', 'display': 'Mineral Elements'},
+                    {'field': 'mineral-species.mineral-name-plain.exact', 'display': 'Mineral Name'},
+                    {'field': 'mineral-species.elements', 'display': 'Mineral Elements'},
                     {
                         'type' : 'range',
-                        'field': 'locality.min-age',
+                        'field': 'mineral-specimen.min-age',
                         'display': 'Min Age',
                         'range': [
                             {'to': 100, 'display': '0 - 100 Ma'},
@@ -97,7 +146,7 @@
                     },
                     {
                         'type' : 'range',
-                        'field': 'locality.max-age',
+                        'field': 'mineral-specimen.max-age',
                         'display': 'Max Age',
                         'range': [
                             {'to': 100, 'display': '0 - 100 Ma'},
@@ -106,11 +155,11 @@
                         ],
                         'open': 'true'
                     },
-                    {'field': 'locality.geologic_time.eon.exact', 'display': 'Geologic Eon'},
-                    {'field': 'locality.geologic_time.era.exact', 'display': 'Geologic Era'},
-                    {'field': 'locality.geologic_time.period.exact', 'display': 'Geologic Period'},
-                    {'field': 'locality.geologic_time.epoch.exact', 'display': 'Geologic Epoch'},
-                    {'field': 'locality.geologic_time.stage.exact', 'display': 'Geologic Stage'},
+                    {'field': 'mineral-specimen.geologic_time.eon.exact', 'display': 'Geologic Eon'},
+                    {'field': 'mineral-specimen.geologic_time.era.exact', 'display': 'Geologic Era'},
+                    {'field': 'mineral-specimen.geologic_time.period.exact', 'display': 'Geologic Period'},
+                    {'field': 'mineral-specimen.geologic_time.epoch.exact', 'display': 'Geologic Epoch'},
+                    {'field': 'mineral-specimen.geologic_time.stage.exact', 'display': 'Geologic Stage'},
                     {'field': 'locality.country.exact', 'display': 'Country'},
                     {'field': 'locality.region.exact', 'display': 'Region'},
                     {'field': 'locality.locality-label.exact', 'display': 'Locality'}

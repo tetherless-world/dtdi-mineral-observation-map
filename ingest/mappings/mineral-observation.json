@@ -1,78 +1,86 @@
-{  
-  "mineral-observation":{  
-    "properties":{  
-      "locality":{  
-        "properties":{  
-          "country":{  
+{
+  "mineral-observation":{
+    "properties":{
+      "locality":{
+        "properties":{
+          "country":{
             "type":"multi_field",
-            "fields":{  
-              "country":{  
+            "fields":{
+              "country":{
                 "type":"string",
                 "index":"analyzed"
               },
-              "exact":{  
+              "exact":{
                 "type":"string",
                 "index":"not_analyzed"
               }
             }
-          },
-          "dated-locality-label":{  
-            "type":"string"
-          },
-          "dated-locality-mindat-id":{  
-            "type":"string"
-          },
-          "dated-locality-mindat-url":{  
-            "type":"string"
           },
           "coordinates":{
             "type":"geo_point",
             "lat_lon":true
           },
-          "lat":{  
+          "lat":{
             "type":"double"
           },
-          "lat-deg":{  
+          "lat-deg":{
             "type":"integer"
           },
-          "lat-min":{  
+          "lat-min":{
             "type":"integer"
           },
-          "lat-sec":{  
+          "lat-sec":{
             "type":"integer"
           },
-          "locality-label":{  
+          "locality-label":{
             "type":"multi_field",
-            "fields":{  
-              "locality-label":{  
+            "fields":{
+              "locality-label":{
                 "type":"string",
                 "index":"analyzed"
               },
-              "exact":{  
+              "exact":{
                 "type":"string",
                 "index":"not_analyzed"
               }
             }
           },
-          "locality-mindat-id":{  
+          "locality-mindat-id":{
             "type":"string"
           },
-          "locality-mindat-url":{  
+          "locality-mindat-url":{
             "type":"string"
           },
-          "lon":{  
+          "lon":{
             "type":"double"
           },
-          "lon-deg":{  
+          "lon-deg":{
             "type":"integer"
           },
-          "lon-min":{  
+          "lon-min":{
             "type":"integer"
           },
-          "lon-sec":{  
+          "lon-sec":{
             "type":"integer"
           },
-          "max-age":{  
+          "region":{
+            "type":"multi_field",
+            "fields":{
+              "region":{
+                "type":"string",
+                "index":"analyzed"
+              },
+              "exact":{
+                "type":"string",
+                "index":"not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "mineral-specimen":{
+        "properties":{
+          "max-age":{
             "type":"double"
           },
           "min-age":{
@@ -147,74 +155,98 @@
               }
             }
           },
-          "region":{  
-            "type":"multi_field",
-            "fields":{  
-              "region":{  
-                "type":"string",
-                "index":"analyzed"
+          "age-unit":{
+            "type":"string"
+          },
+          "age-determination-process":{
+            "properties":{
+              "mindat-claims-existence":{
+                "properties":{
+                  "label":{
+                    "type":"string"
+                  },
+                  "description":{
+                    "type":"string"
+                  }
+                }
               },
-              "exact":{  
-                "type":"string",
-                "index":"not_analyzed"
+              "remote-age":{
+                "properties":{
+                  "label":{
+                    "type":"string"
+                  },
+                  "description":{
+                    "type":"string"
+                  }
+                }
+              },
+              "age-info":{
+                "properties":{
+                  "label":{
+                    "type":"string"
+                  },
+                  "description":{
+                    "type":"string"
+                  }
+                }
+              },
+              "dated-locality-label":{
+                "type":"string"
+              },
+              "dated-locality-mindat-id":{
+                "type":"string"
+              },
+              "dated-locality-mindat-url":{
+                "type":"string"
               }
             }
           }
         }
       },
-      "mineral":{  
-        "properties":{  
-          "chemistry-elements-list":{  
+      "mineral-species":{
+        "properties":{
+          "elements":{
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "country-of-type-locality":{
+            "type":"string"
+          },
+          "fleischers-groupname":{
+            "type":"string"
+          },
+          "ima-chesmistry-concise":{
+            "type":"string"
+          },
+          "ima-chesmistry-html":{
+            "type":"string"
+          },
+          "ima-number":{
+            "type":"string"
+          },
+          "mineral-mindat-url":{
+            "type":"string"
+          },
+          "mineral-name-plain":{
             "type":"multi_field",
-            "fields":{  
-              "chemistry-elements-list":{  
+            "fields":{
+              "mineral-name-plain":{
                 "type":"string",
                 "index":"analyzed"
               },
-              "exact":{  
+              "exact":{
                 "type":"string",
                 "index":"not_analyzed"
               }
             }
           },
-          "country-of-type-locality":{  
+          "rruff-chemistry-concise":{
             "type":"string"
           },
-          "fleischers-groupname":{  
+          "rruff-chemistry-html":{
             "type":"string"
           },
-          "ima-chesmistry-concise":{  
-            "type":"string"
-          },
-          "ima-chesmistry-html":{  
-            "type":"string"
-          },
-          "ima-number":{  
-            "type":"string"
-          },
-          "mineral-mindat-url":{  
-            "type":"string"
-          },
-          "mineral-name-plain":{  
-            "type":"multi_field",
-            "fields":{  
-              "mineral-name-plain":{  
-                "type":"string",
-                "index":"analyzed"
-              },
-              "exact":{  
-                "type":"string",
-                "index":"not_analyzed"
-              }
-            }
-          },
-          "rruff-chemistry-concise":{  
-            "type":"string"
-          },
-          "rruff-chemistry-html":{  
-            "type":"string"
-          },
-          "year-first-published":{  
+          "year-first-published":{
             "type":"string"
           }
         }
