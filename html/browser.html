@@ -50,7 +50,7 @@
                 {{#if mineral-specimen.max-age}}
                     <div>
                         <strong>Age:</strong>
-                        {{mineral-specimen.min-age}} - {{mineral-specimen.max-age}} {{mineral-specimen.age-unit}}
+                        {{avgAgeWithVariance mineral-specimen}} {{mineral-specimen.age-unit}}
                         {{#if mineral-specimen.age-determination-process.remote-age.label}}
                             <sup>{{mineral-specimen.age-determination-process.remote-age.label}}</sup>
                         {{/if}}
@@ -113,6 +113,18 @@
             return out;
         });
 
+        Handlebars.registerHelper('avgAgeWithVariance', function(mineral_specimen) {
+            var min_age = mineral_specimen["min-age"];
+            var max_age = mineral_specimen["max-age"];
+
+            if(min_age == max_age) {
+                return min_age.toString();
+            }
+
+            var avg_age = (max_age + min_age) / 2;
+            var variance = avg_age - min_age;
+            return avg_age.toFixed(0) + "±" + variance.toFixed(0);
+        });
 
         var source = $("#mineral-observation-template").html();
         var template = Handlebars.compile(source);
