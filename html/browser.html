@@ -40,8 +40,8 @@
 
                 {{#if locality.lat}}{{#if locality.lon}}
                 <div>
-                    <strong>Latitude:</strong> {{locality.lat}}
-                    <strong>Longtitude:</strong> {{locality.lon}}
+                    <strong>Latitude:</strong> {{roundCoordinate locality.lat}}
+                    <strong>Longtitude:</strong> {{roundCoordinate locality.lon}}
                     <a href="http://www.google.com/maps/place/{{locality.coordinates}}" target="_blank"> (View in Google Map)</a>
                 </div>
                 {{/if}}{{/if}}
@@ -111,6 +111,10 @@
                 }
             }
             return out;
+        });
+
+        Handlebars.registerHelper('roundCoordinate', function(number) {
+            return Number(number.toFixed(7)).toString();
         });
 
         Handlebars.registerHelper('avgAgeWithVariance', function(mineral_specimen) {
