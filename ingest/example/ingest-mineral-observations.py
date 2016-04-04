@@ -38,11 +38,9 @@ def get_geologic_time(min_age, max_age):
 
     r2 = requests.get(GEOLOGIC_TIME_SERVICE_URL + "/resolve-within", params=payload)
 
-    # "within": "{\"name\": \"Eocene\", \"color\": \"#FDB46C\"}"
-
     if r2 is not None and r2.status_code != 500:
-        foo = r2.json()
-        within = {"name": foo["nam"], "color": foo["col"]}
+        r2Json = r2.json()
+        within = {"name": r2Json["nam"], "color": r2Json["col"]}
     else:
         within = {"name": "none", "color": "#FFFFFF"}
 
