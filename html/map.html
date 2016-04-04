@@ -146,10 +146,12 @@
                         "esri/dijit/PopupTemplate",
                         "esri/geometry/Point",
                         "esri/graphic",
+                        "esri/symbols/SimpleMarkerSymbol",
+                        "esri/Color",
                         "dojo/on",
                         "dojo/_base/array",
                         "dojo/domReady!"
-                    ], function(Map, FeatureLayer, PopupTemplate, Point, Graphic, on, array) {
+                    ], function(Map, FeatureLayer, PopupTemplate, Point, Graphic, SimpleMarkerSymbol, Color, on, array) {
                         map = new Map("map", {
                             basemap: "oceans",
                             center: [0, 0],
@@ -233,6 +235,7 @@
                         map.addLayers([featureLayer]);
 
                         function renderPopups() {
+
                             var records = options.data.records;
                             var data = {};
 
@@ -253,6 +256,8 @@
 
                             var features = [];
 
+                            console.log(Object.keys(data).length);
+
                             for (var item in data) {
 
                                 observation = data[item].observations[0];
@@ -263,7 +268,29 @@
                                 attr["description"] = template(observation).trim();
 
                                 var geometry = new Point(parseFloat(_locality.lon), parseFloat(_locality.lat));
-                                var graphic = new Graphic(geometry);
+
+                                try {
+                                    var hexColor = observation["mineral-specimen"].geologic_time.within.color;
+                                } catch(err) {
+                                    var hexColor = "#FFFFFF";
+                                }
+                                var color = Color.fromHex(hexColor);
+
+                                var symbol = new SimpleMarkerSymbol({
+                                    "type": "esriSMS",
+                                    "style": "esriSMSCircle",
+                                    "size": 8,
+                                    "outline": {
+                                        "color": [128, 128, 128, 128],
+                                        "width": 1,
+                                        "type": "esriSLS",
+                                        "style": "esriSLSSolid"
+                                    }
+                                });
+
+                                symbol.setColor(color);
+
+                                var graphic = new Graphic(geometry, symbol, null, null);
                                 graphic.setAttributes(attr);
                                 features.push(graphic);
                             }

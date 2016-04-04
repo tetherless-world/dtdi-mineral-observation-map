@@ -1,12 +1,12 @@
-__author__ = 'Hao'
-
 import requests
 import csv
 import json
 import argparse
+import os, pkg_resources
 
+__author__ = 'Hao'
 
-GEOLOGIC_TIME_SERVICE_URL = "https://deeptime.tw.rpi.edu/geologic-intervals/resolve-intersects"
+GEOLOGIC_TIME_SERVICE_URL = "https://deeptime.tw.rpi.edu/geologic-intervals"
 
 
 def printJSONString(x):
@@ -23,6 +23,33 @@ def printJSONPretty(x):
     print(json.dumps(x, indent=2, sort_keys=True))
 
 
+def get_geologic_time(min_age, max_age):
+    payload = {'min': min_age, 'max': max_age}
+    r = requests.get(GEOLOGIC_TIME_SERVICE_URL+"/resolve-intersects", params=payload)
+    geologic_time_info = r.json()
+
+    geologic_time = json.loads("{}")
+
+    geologic_time["eon"] = [interval["nam"] for interval in geologic_time_info if interval["type"] == "Eon"]
+    geologic_time["era"] = [interval["nam"] for interval in geologic_time_info if interval["type"] == "Era"]
+    geologic_time["period"] = [interval["nam"] for interval in geologic_time_info if interval["type"] == "Period"]
+    geologic_time["epoch"] = [interval["nam"] for interval in geologic_time_info if interval["type"] == "Epoch"]
+    geologic_time["stage"] = [interval["nam"] for interval in geologic_time_info if interval["type"] == "Stage"]
+
+    r2 = requests.get(GEOLOGIC_TIME_SERVICE_URL + "/resolve-within", params=payload)
+
+    # "within": "{\"name\": \"Eocene\", \"color\": \"#FDB46C\"}"
+
+    if r2 is not None and r2.status_code != 500:
+        foo = r2.json()
+        within = {"name": foo["nam"], "color": foo["col"]}
+    else:
+        within = {"name": "none", "color": "#FFFFFF"}
+
+    geologic_time["within"] = within
+    return geologic_time
+
+
 def main():
     # Command line arguments
     parser = argparse.ArgumentParser()
@@ -33,7 +60,8 @@ def main():
     args = parser.parse_args()
 
     # Import IMA mineral list (currently from file)
-    mineral_list_reader = csv.DictReader(open("RRUFF_Export.csv", 'r', encoding='utf-8', errors='ignore'))
+    rruff_export = pkg_resources.resource_filename(__name__, "RRUFF_Export.csv")
+    mineral_list_reader = csv.DictReader(open(rruff_export, 'r', encoding='utf-8', errors='ignore'))
     mineral_list_JSON_string = json.dumps([x for x in mineral_list_reader], indent=2, sort_keys=True)
     mineral_list_JSON = json.loads(mineral_list_JSON_string)
 
@@ -66,8 +94,9 @@ def main():
             #   - import evolution dataset, and
             #   - from each locality records, collect data for locality and mineral specimen
 
-            locality_list_reader = csv.DictReader(
-                open(mineral_json["Mineral Name (plain)"] + ".csv", 'r', encoding='utf-8', errors='ignore'))
+            mineral_csv = pkg_resources.resource_filename(__name__, mineral_json["Mineral Name (plain)"] + ".csv")
+            locality_list_reader = csv.DictReader(open(mineral_csv, 'r', encoding='utf-8', errors='ignore'))
+
             locality_list_json_string = json.dumps([x for x in locality_list_reader], indent=2, sort_keys=True)
             locality_list_json = json.loads(locality_list_json_string)
 
@@ -111,18 +140,8 @@ def main():
                     # https://deeptime.tw.rpi.edu/geologic-intervals/resolve-intersects
                     min_age = float(locality_json["Min Age (Ma)"])
                     max_age = float(locality_json["Max Age (Ma)"])
-                    payload = {'min': min_age, 'max': max_age }
-                    r = requests.get(GEOLOGIC_TIME_SERVICE_URL, params=payload)
-                    geologic_time_info = r.json()
 
-                    geologic_time = json.loads("{}")
-
-                    geologic_time["eon"] = [interval["nam"] for interval in geologic_time_info if interval["type"] == "Eon"]
-                    geologic_time["era"] = [interval["nam"] for interval in geologic_time_info if interval["type"] == "Era"]
-                    geologic_time["period"] = [interval["nam"] for interval in geologic_time_info if interval["type"] == "Period"]
-                    geologic_time["epoch"] = [interval["nam"] for interval in geologic_time_info if interval["type"] == "Epoch"]
-                    geologic_time["stage"] = [interval["nam"] for interval in geologic_time_info if interval["type"] == "Stage"]
-
+                    geologic_time = get_geologic_time(min_age, max_age)
                     mineral_specimen["geologic_time"] = geologic_time
 
                 mineral_specimen["dated-locality-label"] = locality_json["Dated Locality (Max Age)"]
