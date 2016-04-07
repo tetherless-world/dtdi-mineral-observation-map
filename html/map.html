@@ -256,8 +256,6 @@
 
                             var features = [];
 
-                            console.log(Object.keys(data).length);
-
                             for (var item in data) {
 
                                 observation = data[item].observations[0];
@@ -270,10 +268,15 @@
                                 var geometry = new Point(parseFloat(_locality.lon), parseFloat(_locality.lat));
 
                                 try {
-                                    var hexColor = observation["mineral-specimen"].geologic_time.within.color;
+                                    if(observation["mineral-specimen"].geologic_time.within.name == "none") {
+                                        var hexColor = "#000000";
+                                    } else {
+                                        var hexColor = observation["mineral-specimen"].geologic_time.within.color;
+                                    }
                                 } catch(err) {
                                     var hexColor = "#FFFFFF";
                                 }
+
                                 var color = Color.fromHex(hexColor);
 
                                 var symbol = new SimpleMarkerSymbol({
