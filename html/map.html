@@ -58,6 +58,21 @@
                 {{#if mineral-species.rruff-chemistry-html}}<div><strong>Mineral Chemistry:</strong> {{{mineral-species.rruff-chemistry-html}}}</div>{{/if}}
 
                 {{!-- link to MINDAT profile (badge?) --}}
+                <div class="badge">
+                    <a href="http://rruff.info/mineral_list/locality.php?mineral_name={{mineral-species.mineral-name-plain}}" target="_blank">
+                        <img style='vertical-align: middle' src='//dcotest.tw.rpi.edu/badges/badge?title=RRUFF&text={{mineral-species.mineral-name-plain}}&color=66CCFF'>
+                    </a>
+                </div>
+                <div class="badge">
+                    <a href="https://en.wikipedia.org/wiki/{{mineral-species.mineral-name-plain}}" target="_blank">
+                        <img style='vertical-align: middle' src='//dcotest.tw.rpi.edu/badges/badge?title=Wikipedia&text={{mineral-species.mineral-name-plain}}&color=D14719'>
+                    </a>
+                </div>
+                <div class="badge">
+                    <a href="http://www.webmineral.com/data/{{mineral-species.mineral-name-plain}}.shtml" target="_blank">
+                        <img style='vertical-align: middle' src='//dcotest.tw.rpi.edu/badges/badge?title=Web Mineral&text={{mineral-species.mineral-name-plain}}&color=66CD00'>
+                    </a>
+                </div>
             </td>
         </tr>
     </script>
@@ -319,6 +334,11 @@
 
         #facetview_rightcol {
             margin-top: 10px;
+        }
+        
+        div.badge {
+            margin: 5px;
+            height: 20%;
         }
 
     </style>
