@@ -92,7 +92,7 @@ def main():
             #   - import evolution dataset, and
             #   - from each locality records, collect data for locality and mineral specimen
 
-            mineral_csv = pkg_resources.resource_filename(__name__, mineral_json["Mineral Name (plain)"] + ".csv")
+            mineral_csv = pkg_resources.resource_filename(__name__, mineral_json["Mineral Name (plain)"].lower() + ".csv")
             locality_list_reader = csv.DictReader(open(mineral_csv, 'r', encoding='utf-8', errors='ignore'))
 
             locality_list_json_string = json.dumps([x for x in locality_list_reader], indent=2, sort_keys=True)
