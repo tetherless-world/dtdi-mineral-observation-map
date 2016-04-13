@@ -83,9 +83,18 @@
                 {{/if}}
 
                 <div>
-                    <a href="http://rruff.info/mineral_list/locality.php?mineral_name={{mineral-species.mineral-name-plain}}" target="_blank"><strong>RRUFF</strong></a>
-                </div>
+                    <a href="http://rruff.info/mineral_list/locality.php?mineral_name={{mineral-species.mineral-name-plain}}" target="_blank">
+                        <img style='vertical-align: middle' src='//dcotest.tw.rpi.edu/badges/badge?title=RRUFF&text={{mineral-species.mineral-name-plain}}&color=66CCFF'>
+                    </a>
 
+                    <a href="https://en.wikipedia.org/wiki/{{mineral-species.mineral-name-plain}}" target="_blank">
+                        <img style='vertical-align: middle' src='//dcotest.tw.rpi.edu/badges/badge?title=Wikipedia&text={{mineral-species.mineral-name-plain}}&color=D14719'>
+                    </a>
+
+                    <a href="http://www.webmineral.com/data/{{mineral-species.mineral-name-plain}}.shtml" target="_blank">
+                        <img style='vertical-align: middle' src='//dcotest.tw.rpi.edu/badges/badge?title=Web Mineral&text={{mineral-species.mineral-name-plain}}&color=66CD00'>
+                    </a>
+                </div>
 
                 <!--{{#if description}}-->
                     <!--<div>-->
