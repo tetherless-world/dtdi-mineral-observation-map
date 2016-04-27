@@ -58,7 +58,7 @@ def main():
     args = parser.parse_args()
 
     # Import IMA mineral list (currently from file)
-    rruff_export = pkg_resources.resource_filename(__name__, "RRUFF_Export.csv")
+    rruff_export = pkg_resources.resource_filename(__name__, "resources/RRUFF_Export.csv")
     mineral_list_reader = csv.DictReader(open(rruff_export, 'r', encoding='utf-8', errors='ignore'))
     mineral_list_JSON_string = json.dumps([x for x in mineral_list_reader], indent=2, sort_keys=True)
     mineral_list_JSON = json.loads(mineral_list_JSON_string)
@@ -92,7 +92,7 @@ def main():
             #   - import evolution dataset, and
             #   - from each locality records, collect data for locality and mineral specimen
 
-            mineral_csv = pkg_resources.resource_filename(__name__, mineral_json["Mineral Name (plain)"].lower() + ".csv")
+            mineral_csv = pkg_resources.resource_filename(__name__, "resources/" + mineral_json["Mineral Name (plain)"].lower() + ".csv")
             locality_list_reader = csv.DictReader(open(mineral_csv, 'r', encoding='utf-8', errors='ignore'))
 
             locality_list_json_string = json.dumps([x for x in locality_list_reader], indent=2, sort_keys=True)
