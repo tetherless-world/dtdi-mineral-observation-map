@@ -28,8 +28,8 @@
                     <strong>Locality:</strong>
                     <a href="{{locality.locality-mindat-url}}" target="_blank">{{locality.locality-label}}</a>
                     <sup>
-                        <span href="{{locality.locality-mindat-url}}" data-toggle="popover" data-trigger="hover" data-content="{{mineral-specimen.age-determination-process.mindat-claims-existence.description}}" onmouseover="invokePopover(this)" popover-status="off">
-                            {{mineral-specimen.age-determination-process.mindat-claims-existence.label}}
+                        <span href="{{locality.locality-mindat-url}}" data-toggle="popover" data-trigger="hover" data-content="<strong>{{mineral-specimen.age-determination-process.mindat-claims-existence.label}}</strong>: {{mineral-specimen.age-determination-process.mindat-claims-existence.description}}" onmouseover="invokePopover(this)" popover-status="off">
+                            <strong>{{mineral-specimen.age-determination-process.mindat-claims-existence.label}}</strong>
                         </span>
                     </sup>
                 </div>
@@ -49,15 +49,15 @@
                         {{avgAgeWithVariance mineral-specimen}} {{mineral-specimen.age-unit}}
                         {{#if mineral-specimen.age-determination-process.remote-age.label}}
                             <sup>
-                                <span data-toggle="popover" data-trigger="hover" data-content='<strong>Remote dated locality:</strong><br><a href="{{mineral-specimen.dated-locality-mindat-url}}" target="_blank">{{mineral-specimen.dated-locality-label}}</a>' onmouseover="invokePopover(this)" popover-status="off">
-                                    <b>{{mineral-specimen.age-determination-process.remote-age.label}}</b>
+                                <span data-toggle="popover" data-trigger="hover" data-content='<strong>R</strong>: {{mineral-specimen.age-determination-process.remote-age.description}}<br><a href="{{mineral-specimen.dated-locality-mindat-url}}" target="_blank">{{mineral-specimen.dated-locality-label}}</a>' onmouseover="invokePopover(this)" popover-status="off">
+                                    <strong>{{mineral-specimen.age-determination-process.remote-age.label}}</strong>
                                 </span>
                             </sup>
                         {{/if}}
                         {{#if mineral-specimen.age-determination-process.age-info.label}}
                             <sup>
-                                <span data-toggle="popover" data-trigger="hover" data-content="{{mineral-specimen.age-determination-process.age-info.description}}" onmouseover="invokePopover(this)" popover-status="off">
-                                    <b>{{mineral-specimen.age-determination-process.age-info.label}}</b>
+                                <span data-toggle="popover" data-trigger="hover" data-content="<strong>{{mineral-specimen.age-determination-process.age-info.label}}</strong>: {{mineral-specimen.age-determination-process.age-info.description}}" onmouseover="invokePopover(this)" popover-status="off">
+                                    <strong>{{mineral-specimen.age-determination-process.age-info.label}}</strong>
                                 </span>
                             </sup>
                         {{/if}}
