@@ -75,15 +75,15 @@
 
                 <div>
                     <a href="http://rruff.info/mineral_list/locality.php?mineral_name={{mineral-species.mineral-name-plain}}" target="_blank">
-                        <img style='vertical-align: middle' src='//dcotest.tw.rpi.edu/badges/badge?title=RRUFF&text={{mineral-species.mineral-name-plain}}&color=66CCFF'>
+                        <img style='vertical-align: middle' src='{{rruffBadgeURL mineral-species.mineral-name-plain}}'>
                     </a>
 
                     <a href="https://en.wikipedia.org/wiki/{{mineral-species.mineral-name-plain}}" target="_blank">
-                        <img style='vertical-align: middle' src='//dcotest.tw.rpi.edu/badges/badge?title=Wikipedia&text={{mineral-species.mineral-name-plain}}&color=D14719'>
+                        <img style='vertical-align: middle' src='{{wikipediaBadgeURL mineral-species.mineral-name-plain}}'>
                     </a>
 
                     <a href="http://www.webmineral.com/data/{{mineral-species.mineral-name-plain}}.shtml" target="_blank">
-                        <img style='vertical-align: middle' src='//dcotest.tw.rpi.edu/badges/badge?title=Web Mineral&text={{mineral-species.mineral-name-plain}}&color=66CD00'>
+                        <img style='vertical-align: middle' src='{{webmineralBadgeURL mineral-species.mineral-name-plain}}'>
                     </a>
                 </div>
             </td>
@@ -116,6 +116,24 @@
     </script>
 
     <script type="text/javascript">
+
+        var build_badge_url = function(label, value, color) {
+            label = encodeURIComponent(label).replace(/-/g, "--");
+            value = encodeURIComponent(value).replace(/-/g, "--");
+            return "//img.shields.io/badge/"+label+"-"+value+"-"+color+".svg";
+        };
+
+        Handlebars.registerHelper('rruffBadgeURL', function(text) {
+            return build_badge_url("RRUFF", text, "66CCFF");
+        });
+
+        Handlebars.registerHelper('wikipediaBadgeURL', function(text) {
+            return build_badge_url("Wikipedia", text, "D14719");
+        });
+
+        Handlebars.registerHelper('webmineralBadgeURL', function(text) {
+           return build_badge_url("Web Mineral", text, "66CD00");
+        });
 
         Handlebars.registerHelper('expand', function(items, options) {
             var out = "";
